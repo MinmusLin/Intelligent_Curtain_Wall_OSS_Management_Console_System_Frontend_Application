@@ -1,9 +1,9 @@
 <template>
-  <div class='header'>
+  <div class='header' v-if='headerVisible'>
     <div class='title'>
       <span>智慧幕墙数据集管理平台</span>
     </div>
-    <div class='operation' v-if='headerVisible'>
+    <div class='operation'>
       <div class='operation-child'>
         <span class='iconfont icon-yonghu1'/>
         <span>{{ ossSubsystem }}</span>
