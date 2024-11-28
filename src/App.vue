@@ -60,9 +60,7 @@ export default {
 }
 </script>
 
-<style>
-@import '/css/icon.css';
-
+<style lang='css'>
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -73,6 +71,10 @@ export default {
 body {
   font-size: 12px;
 }
+</style>
+
+<style scoped lang='css'>
+@import '/css/icon.css';
 
 .web-oss {
   width: 100%;
