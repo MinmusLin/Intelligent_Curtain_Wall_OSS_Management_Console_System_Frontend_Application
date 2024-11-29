@@ -20,8 +20,6 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-plugin-component": "^1.1.1",
-    "node-sass": "^8.0.0",
-    "sass-loader": "7.0.3",
     "vue-template-compiler": "^2.6.11"
   }
 }
