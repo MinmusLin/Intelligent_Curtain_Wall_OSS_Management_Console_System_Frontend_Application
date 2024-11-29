@@ -220,9 +220,9 @@ export default {
       await this.$store.dispatch('deleteFile', this.selections)
     },
     async mkdirClick() {
-      let empty = this.mkdirName.match(/^\s+$/)
-      if (empty != null || !this.mkdirName) {
-        this.$message.error('目录名称非法')
+      const validNamePattern = /^[a-z0-9]+$/
+      if (!this.mkdirName || !validNamePattern.test(this.mkdirName)) {
+        this.$message.warning('目录名称非法，请输入小写字母或数字')
         return
       }
       this.mkdirVisible = false

@@ -363,6 +363,16 @@ export default {
   font-weight: 700;
   color: #888;
 }
+.el-dialog__body {
+  padding: 0;
+}
+
+.form-outer {
+  padding: 0 20px;
+  .form-inner {
+    padding: 0;
+  }
+}
 </style>
 
 <style scoped lang="css">
