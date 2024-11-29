@@ -39,7 +39,9 @@
           <i class='iconfont icon-jianqie'/>
           <span>移动</span>
         </div>
-        <div class='btn-child' @click="operationClick('delete')" style='border-right: 1px solid rgba(0, 0, 0, 0.2)'>
+        <div class='btn-child'
+             @click="operationClick('delete')"
+             style='border-right: 1px solid rgba(136, 136, 136, 0.3)'>
           <i class='iconfont icon-dashujukeshihuaico-'/>
           <span>删除</span>
         </div>
@@ -132,12 +134,11 @@
   </div>
 </template>
 
-<script>
+<script lang='js'>
 import {mapState} from 'vuex'
 import {simplePut} from '@/api'
 import {percentage} from '@/tool'
 
-// noinspection JSUnresolvedReference
 export default {
   data() {
     return {
@@ -292,13 +293,6 @@ export default {
   }
 }
 </script>
-
-<style lang='css'>
-/* noinspection CssUnusedSymbol */
-.clip-dialog .el-dialog {
-  margin: 0 auto;
-}
-</style>
 
 <style scoped lang='css'>
 .ace-btns {
@@ -529,11 +523,7 @@ export default {
 }
 
 .file-header {
-  width: 100%;
-  height: 75px;
-
   > .top {
-    width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
@@ -541,29 +531,24 @@ export default {
 
     .ace-path {
       width: 100%;
-      background-color: white;
       height: 30px;
       border: 1px solid rgba(136, 136, 136, 0.3);
-      border-right: 0;
       display: flex;
       align-items: center;
       padding-left: 10px;
 
       > span {
-        color: #555555;
-        font-weight: 900;
+        color: #2F3235;
+        font-weight: bold;
         font-size: 13px;
       }
     }
   }
 
   > .bottom {
-    width: 100%;
     height: 35px;
-    background-color: white;
     padding: 0 10px;
     border-bottom: 1px solid rgba(136, 136, 136, 0.3);
-    display: flex;
   }
 }
 </style>
