@@ -1,9 +1,9 @@
 <template>
   <div class='home-container'>
-    <CloudDiskHeader/>
-    <CloudDiskList/>
-    <AceEditor v-if='editorShow'/>
-    <CloudDiskDataPass v-show='transmissionShow'/>
+    <Operation/>
+    <List/>
+    <Editor v-if='editorShow'/>
+    <Transmission v-show='transmissionShow'/>
     <div class='copyright'>
       <span>版权所有 © 2024 同济大学 - 智慧幕墙数据集管理平台</span>
     </div>
@@ -20,17 +20,17 @@
 
 <script lang='js'>
 import {mapState} from 'vuex'
-import AceEditor from '@/components/AceEditor.vue'
-import CloudDiskHeader from '@/components/CloudDiskHeader.vue'
-import CloudDiskList from '@/components/CloudDiskList.vue'
-import CloudDiskDataPass from '@/components/CloudDiskDataPass.vue'
+import Editor from '@/components/Editor.vue'
+import Operation from '@/components/Operation.vue'
+import List from '@/components/List.vue'
+import Transmission from '@/components/Transmission.vue'
 
 export default {
   components: {
-    AceEditor,
-    CloudDiskHeader,
-    CloudDiskList,
-    CloudDiskDataPass
+    Editor,
+    Operation,
+    List,
+    Transmission
   },
   computed: mapState({
     editorShow: (state) => state.editorShow,

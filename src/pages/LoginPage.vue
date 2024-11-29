@@ -6,7 +6,7 @@
       <h1>欢迎登录系统</h1>
       <h4>智慧幕墙数据集管理平台</h4>
       <div style='display: flex; flex-direction: column; justify-content: center; align-items: center'>
-        <el-select v-model='user' placeholder='请选择账号' style='width: 380px;'>
+        <el-select v-model='user' placeholder='请选择账号' style='width: 380px'>
           <el-option v-for='item in accounts' :key='item.name' :label='item.subsystem' :value='item.name'/>
         </el-select>
         <el-input v-model='password'
