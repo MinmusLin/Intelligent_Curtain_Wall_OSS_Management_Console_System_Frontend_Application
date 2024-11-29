@@ -1,5 +1,4 @@
 <template>
-  <!-- 头部控制台 -->
   <div class="file-header">
     <div class="top">
       <div class="ace-btns">
