@@ -1,91 +1,78 @@
 <template>
-  <div class="home">
+  <div class='home-container'>
     <CloudDiskHeader/>
     <CloudDiskList/>
-    <editor v-if="editorShow"/>
-    <CloudDiskDataPass v-show="transmissionShow"/>
-    <div class="transmission-control"
-        v-show="!transmissionShow"
-        @click="
-        $store.commit('stateUpdate', { name: 'transmissionShow', data: true })
-      "
-    >
-      <span class="iconfont icon-shangchuan" style="margin-right: 2px"></span>
-      <span style="color: #888; font-weight: 700">{{
-          `${diskInfo().current}/${diskInfo().all}`
-        }}</span>
+    <AceEditor v-if='editorShow'/>
+    <CloudDiskDataPass v-show='transmissionShow'/>
+    <div class='copyright'>
+      <span>版权所有 © 2024 同济大学 - 智慧幕墙数据集管理平台</span>
+    </div>
+    <div class='transmission-control'
+         v-show='!transmissionShow'
+         @click="$store.commit('stateUpdate', { name: 'transmissionShow', data: true })">
+      <span class='iconfont icon-shangchuan' style='margin-right: 6px'/>
+      <span style='color: #2F3235; font-weight: 700'>
+        {{ `${diskInfo().current} / ${diskInfo().all}` }}
+      </span>
     </div>
   </div>
 </template>
 
-<script>
-import editor from "@/components/AceEditor.vue";
-import {mapState} from "vuex";
-import CloudDiskHeader from "@/components/CloudDiskHeader";
-import CloudDiskList from "@/components/CloudDiskList";
-import CloudDiskDataPass from "@/components/CloudDiskDataPass";
+<script lang='js'>
+import {mapState} from 'vuex'
+import AceEditor from '@/components/AceEditor.vue'
+import CloudDiskHeader from '@/components/CloudDiskHeader.vue'
+import CloudDiskList from '@/components/CloudDiskList.vue'
+import CloudDiskDataPass from '@/components/CloudDiskDataPass.vue'
 
 export default {
-  name: "",
-  components: {editor, CloudDiskHeader, CloudDiskList, CloudDiskDataPass},
-  props: {},
-  data() {
-    return {};
+  components: {
+    AceEditor,
+    CloudDiskHeader,
+    CloudDiskList,
+    CloudDiskDataPass
   },
   computed: mapState({
-    // 箭头函数可使代码更简练
-    path: (state) => state.path,
     editorShow: (state) => state.editorShow,
     transmissionShow: (state) => state.transmissionShow,
-    uploadList: (state) => state.uploadList,
+    uploadList: (state) => state.uploadList
   }),
-  watch: {},
-  created() {
-  },
-  async mounted() {
-    console.log('====');
-  },
   methods: {
     diskInfo() {
-      let current = 0;
+      let current = 0
       this.uploadList.map((item) => {
-        if (item.status === "1") {
-          current += 1;
+        if (item.status === '1') {
+          current += 1
         }
-      });
-      return {current, all: this.uploadList.length};
-    },
-  },
-};
+      })
+      return {current, all: this.uploadList.length}
+    }
+  }
+}
 </script>
 
-<style lang="scss">
-.el-table td,
-.el-table th {
-  padding: 0px 0 0 0;
-}
-</style>
-
-<style scoped lang="scss">
-.home {
+<style scoped lang='css'>
+.home-container {
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
   position: relative;
 
-  .transmission-control {
-    height: 24px;
+  .copyright {
     position: absolute;
+    color: #5D6065;
+    user-select: none;
+    left: 8px;
+    bottom: 4px;
+  }
+
+  .transmission-control {
+    position: absolute;
+    height: 24px;
     right: 0;
     bottom: 0;
     padding: 0 10px;
-    background-color: #fff;
-    opacity: 0.8;
-    box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
-    box-sizing: border-box;
-    z-index: 3000;
     cursor: pointer;
   }
 }
