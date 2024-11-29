@@ -85,9 +85,9 @@
   </div>
 </template>
 
-<script>
-import {renderSize, dateFormat, download} from "@/tool";
-import {signatureUrl, copy, deleteMulti, deleteKey} from "@/api";
+<script lang='js'>
+import {dateFormat, download, renderSize} from "@/tool";
+import {copy, deleteKey, signatureUrl} from "@/api";
 import {mapState} from "vuex";
 import axios from "axios";
 
@@ -97,7 +97,6 @@ export default {
   props: {},
   data() {
     return {
-      download,
       renderSize,
       dateFormat,
       rename: {},
@@ -311,8 +310,7 @@ export default {
     // 文件名加工
     dirTitleTool({name, dir}) {
       let names = name.split("/");
-      let fileName = dir ? names[names.length - 2] : names[names.length - 1];
-      return fileName;
+      return dir ? names[names.length - 2] : names[names.length - 1];
     },
     // 后缀Icon加工
     suffixIconTool(row) {
@@ -435,43 +433,12 @@ export default {
   }
 }
 
-.referer-info {
-  display: block;
-  width: 400px;
-  height: 70px;
-  padding: 0 10px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  background-color: #fcf8e3;
-  border: 1px solid #888;
-  margin: 10px 0 0 70px;
-  color: #a58d62;
-}
-
-.text-child {
-  width: 100%;
-  height: 50px;
-  padding: 0 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-
-  > span {
-    width: 50px;
-    font-size: 16px;
-    font-weight: 800;
-  }
-}
-
 .ace-btns {
   height: 30px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  margin-right: 0px;
+  margin-right: 0;
   user-select: none;
 
   .btn-child {
@@ -481,7 +448,7 @@ export default {
     background-color: #fff;
     box-sizing: border-box;
     border: 1px solid rgba(136, 136, 136, 0.3);
-    border-right: 0px;
+    border-right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -502,15 +469,6 @@ export default {
     > span {
       font-size: 14px;
       margin-left: 3px;
-    }
-
-    > .icon-jia {
-      color: #3c763d;
-      font-weight: 700;
-    }
-
-    > .icon-shangchuan {
-      color: #31708f;
     }
 
     &:hover {

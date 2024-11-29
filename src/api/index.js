@@ -79,9 +79,9 @@ export const multipartUpload = async (key, file, options = {}, client) => {
  * @param {Object} options - Additional options for the upload.
  * @returns {Promise<Object>} A promise that resolves with the result of the multipart upload.
  */
-export const editorMultipartUpload = (key, file, options = {}) => {
-    return getClient().multipartUpload(key, file, options)
-}
+// export const editorMultipartUpload = (key, file, options = {}) => {
+//     return getClient().multipartUpload(key, file, options)
+// }
 
 /**
  * Perform multipart upload as a fallback method.

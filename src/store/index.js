@@ -127,7 +127,6 @@ export default new Vuex.Store({
                         checkpoint
                     })
                 },
-                meta: {year: 2024, people: 'test'},
                 mime: file.type
             }
             if (checkpoint) {
@@ -138,9 +137,9 @@ export default new Vuex.Store({
                 file,
                 options,
                 client
-            ).then((data) => {
+            ).then((_) => {
                 dispatch('fileUpdate')
-            }).catch((error) => {
+            }).catch((_) => {
                 commit('progressCancel', {uploadId})
             })
         },
@@ -188,7 +187,7 @@ export default new Vuex.Store({
 
             commit('stateUpdate', {name: 'loading', data: true})
             let rf = await fileList(state.path)
-            let {objects, prefixes, res, isTruncated, nextMarker} = rf
+            let {objects, prefixes, isTruncated, nextMarker} = rf
             if (isTruncated) {
                 const result = await infiniteList(nextMarker, objects, prefixes)
                 objects = result.objects
@@ -312,13 +311,11 @@ export default new Vuex.Store({
             commit('stateUpdate', {name: 'copyVisible', data: true})
             let files = await dispatch('getfiles', state.copys)
             let list = []
-            let deletes = []
             files.map((item) => {
                 list.push({
                     to: item.name.replace(state.copyPath, info.toFile ? info.toFile : state.path),
                     from: item.name
                 })
-                deletes.push(item.name)
             })
             state.copyTotal = list.length
             for (let i = 0; i < list.length; i++) {
