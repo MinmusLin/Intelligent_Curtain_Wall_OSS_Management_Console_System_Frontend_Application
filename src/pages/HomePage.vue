@@ -1,20 +1,10 @@
 <template>
   <div class="home">
-    <!-- 总控制台 -->
     <CloudDiskHeader/>
-
-    <!-- 文件列表 -->
     <CloudDiskList/>
-
-    <!-- 代码编辑器 -->
     <editor v-if="editorShow"/>
-
-    <!-- 数据传输控制台 -->
     <CloudDiskDataPass v-show="transmissionShow"/>
-
-    <!-- 微型传输控制台 -->
-    <div
-        class="transmission-control"
+    <div class="transmission-control"
         v-show="!transmissionShow"
         @click="
         $store.commit('stateUpdate', { name: 'transmissionShow', data: true })
