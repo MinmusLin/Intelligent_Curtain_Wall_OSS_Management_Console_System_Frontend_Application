@@ -39,7 +39,7 @@ export default {
     }),
     displayAcePath() {
       const parts = this.acePath.split('/')
-      return parts.length > 1 ? parts.slice(1).join('/') : this.acePath
+      return parts.length > 1 ? parts[parts.length - 1] : this.acePath
     }
   },
   mounted() {

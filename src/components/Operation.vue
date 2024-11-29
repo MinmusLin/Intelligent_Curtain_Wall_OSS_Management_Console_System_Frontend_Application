@@ -1,167 +1,129 @@
 <template>
-  <div class="file-header">
-    <div class="top">
-      <div class="ace-btns">
-        <div class="btn-child" @click="pathBack">
-          <span class="iconfont icon-arrowLeft-fill"></span>
+  <div class='file-header'>
+    <div class='top' style='transform: translateY(-5px)'>
+      <div class='ace-btns'>
+        <div class='btn-child' @click='pathBack'>
+          <span class='iconfont icon-arrowLeft-fill'/>
         </div>
-        <div class="btn-child" @click="refresh">
-          <span class="iconfont icon-shuaxin"></span>
+        <div class='btn-child' @click='refresh'>
+          <span class='iconfont icon-shuaxin'/>
         </div>
-        <div class="btn-child"
-             @click="$store.commit('stateUpdate', { name: 'path', data: '' })">
-          <span class="iconfont icon-home"></span>
+        <div class='btn-child' @click="$store.commit('stateUpdate', { name: 'path', data: '' })">
+          <span class='iconfont icon-home'/>
         </div>
       </div>
-      <div class="ace-path">
+      <div class='ace-path'>
         <span>oss://{{ bucket }}/{{ path }}</span>
       </div>
     </div>
-    <div class="bottom">
-      <div class="ace-btns" v-show="path">
-        <div class="btn-child">
-          <i class="iconfont icon-shangchuan"></i>
+    <div class='bottom'>
+      <div class='ace-btns' v-show='path' style='transform: translateY(-3px)'>
+        <div class='btn-child'>
+          <i class='iconfont icon-shangchuan'/>
           <span>文件</span>
-          <input type="file" @change="dirUpload" multiple/>
+          <input type='file' @change='dirUpload' multiple/>
         </div>
-        <div class="btn-child" @click="mkdirFileClick">
-          <i class="iconfont icon-jia"></i>
+        <div class='btn-child' @click='mkdirFileClick'>
+          <i class='iconfont icon-jia'/>
           <span>创建目录</span>
         </div>
-        <div class="btn-child" @click="downloadAddressClick">
-          <i class="iconfont icon-xiazai3"></i>
+        <div class='btn-child' @click='downloadAddressClick'>
+          <i class='iconfont icon-xiazai3'/>
           <span>获取地址</span>
         </div>
-        <div class="btn-child" @click="copyClick(null)">
-          <i class="iconfont icon-fuzhi"></i>
+        <div class='btn-child' @click='copyClick(null)'>
+          <i class='iconfont icon-fuzhi'/>
           <span>复制</span>
         </div>
-        <div class="btn-child" @click="copyClick(true)">
-          <i class="iconfont icon-jianqie"></i>
+        <div class='btn-child' @click='copyClick(true)'>
+          <i class='iconfont icon-jianqie'/>
           <span>移动</span>
         </div>
-        <div
-            class="btn-child"
-            @click="operationClick('delete')"
-            style="border-right: 1px solid rgba(0, 0, 0, 0.2)"
-        >
-          <i class="iconfont icon-dashujukeshihuaico-"></i>
+        <div class='btn-child' @click="operationClick('delete')" style='border-right: 1px solid rgba(0, 0, 0, 0.2)'>
+          <i class='iconfont icon-dashujukeshihuaico-'/>
           <span>删除</span>
         </div>
-        <div class="paste" v-if="copys.length > 0">
-          <div class="paste-child" @click="pasteClick">
-            <i class="iconfont icon-niantie"></i>
+        <div class='paste' v-if='copys.length > 0'>
+          <div class='paste-child' @click='pasteClick'>
+            <i class='iconfont icon-niantie'/>
             <span>粘贴 ({{ copys.length }})</span>
           </div>
-          <span
-              class="iconfont icon-dashujukeshihuaico-"
-              @click="cancelPasteClick"
-          ></span>
+          <span class='iconfont icon-dashujukeshihuaico-' @click='cancelPasteClick'/>
         </div>
       </div>
     </div>
-
-    <el-dialog
-        title="创建目录"
-        :visible.sync="mkdirVisible"
-        width="400px"
-        :before-close="handleClose"
-        append-to-body
-    >
-      <div class="mkdir">
+    <el-dialog title='创建目录' :visible.sync='mkdirVisible' width='400px' :before-close='handleClose' append-to-body>
+      <div class='mkdir'>
         <span>目录名称</span>
-        <el-input v-model="mkdirName" placeholder="目录名称"></el-input>
+        <el-input v-model='mkdirName' placeholder='目录名称'/>
       </div>
-      <div class="mkdir-btn">
-        <div class="ace-btns">
-          <div class="btn-child" @click="mkdirClick">
-            <i class="iconfont icon-queding1"></i>
+      <div class='mkdir-btn'>
+        <div class='ace-btns'>
+          <div class='btn-child' @click='mkdirClick'>
+            <i class='iconfont icon-queding1'/>
             <span>确定</span>
           </div>
-          <div class="btn-child" @click="mkdirVisible = false">
-            <i class="iconfont icon-dashujukeshihuaico-"></i>
+          <div class='btn-child' @click='mkdirVisible = false'>
+            <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>取消</span>
           </div>
         </div>
       </div>
     </el-dialog>
-
-    <el-dialog
-        :title="deleteConfirm ? '文件删除' : '将删除以下目录和文件'"
-        :visible.sync="deleteVisible"
-        width="600px"
-        :before-close="() => closeFun('deleteVisible', false)"
-        append-to-body
-    >
-      <div class="delete-progress" v-if="deleteConfirm">
-        <span>{{
-            this.deleteTotal > 1000
-                ? "删除文件数量超限，可能会受到OSS服务器的并发限制，正在删除......"
-                : "正在删除......"
-          }}</span>
-        <div class="delete-child">
-          <span
-              :style="{ width: percentage(deleteNum, deleteTotal) + '%' }"
-          ></span>
+    <el-dialog :title="deleteConfirm ? '文件删除' : '将删除以下目录和文件'"
+               :visible.sync='deleteVisible'
+               width='600px'
+               :before-close="() => closeFun('deleteVisible', false)"
+               append-to-body>
+      <div class='delete-progress' v-if='deleteConfirm'>
+        <span>
+          {{ this.deleteTotal > 1000 ? '删除文件数量超限，可能会受到OSS服务器的并发限制，正在删除' : '正在删除' }}
+        </span>
+        <div class='delete-child'>
+          <span :style="{ width: percentage(deleteNum, deleteTotal) + '%' }"/>
         </div>
         <span>{{ deleteNum }} / {{ deleteTotal }}</span>
       </div>
-      <div class="delete-list" v-if="!deleteConfirm">
-        <div
-            class="delete-child"
-            v-for="(item, index) in selections"
-            :key="index"
-        >
-          <svg class="icon" aria-hidden="true">
-            <use
-                :xlink:href="
-                item.name[item.name.length - 1] === '/'
-                  ? '#icon-wenjianjia'
-                  : suffixIconTool(item)
-              "
-            ></use>
+      <div class='delete-list' v-if='!deleteConfirm'>
+        <div class='delete-child' v-for='(item, index) in selections' :key='index'>
+          <svg class='icon' aria-hidden='true'>
+            <!--suppress HtmlUnknownAttribute-->
+            <use :xlink:href="item.name[item.name.length - 1] === '/' ? '#icon-wenjianjia' : suffixIconTool(item)"/>
           </svg>
-
           <span>{{ item.name }}</span>
         </div>
       </div>
-      <div class="mkdir-btn">
-        <div class="ace-btns">
-          <div class="btn-child" @click="deleteFile" v-if="!deleteConfirm">
-            <i class="iconfont icon-queding1"></i>
+      <div class='mkdir-btn'>
+        <div class='ace-btns'>
+          <div class='btn-child' @click='deleteFile' v-if='!deleteConfirm'>
+            <i class='iconfont icon-queding1'/>
             <span>确定</span>
           </div>
-          <div class="btn-child" @click="closeFun('deleteVisible', false)">
-            <i class="iconfont icon-dashujukeshihuaico-"></i>
+          <div class='btn-child' @click="closeFun('deleteVisible', false)">
+            <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>关闭</span>
           </div>
         </div>
       </div>
     </el-dialog>
-
-    <el-dialog
-        title="拷贝"
-        :visible.sync="copyVisible"
-        width="600px"
-        :before-close="() => closeFun('copyVisible', false)"
-        append-to-body
-    >
-      <div class="copy-progress">
-        <span>{{
-            this.copyTotal > 1000
-                ? "由于拷贝文件数量超限，可能会受到OSS服务器的并发限制，正在粘贴......"
-                : "正在粘贴......"
-          }}</span>
-        <div class="copy-child">
-          <span :style="{ width: percentage(copyNum, copyTotal) + '%' }"></span>
+    <el-dialog title='拷贝'
+               :visible.sync='copyVisible'
+               width='600px'
+               :before-close="() => closeFun('copyVisible', false)"
+               append-to-body>
+      <div class='copy-progress'>
+        <span>
+          {{ this.copyTotal > 1000 ? '由于拷贝文件数量超限，可能会受到OSS服务器的并发限制，正在粘贴' : '正在粘贴' }}
+        </span>
+        <div class='copy-child'>
+          <span :style="{ width: percentage(copyNum, copyTotal) + '%' }"/>
         </div>
         <span>{{ copyNum }} / {{ copyTotal }}</span>
       </div>
-
-      <div class="mkdir-btn">
-        <div class="ace-btns">
-          <div class="btn-child" @click="closeFun('copyVisible', false)">
-            <i class="iconfont icon-dashujukeshihuaico-"></i>
+      <div class='mkdir-btn'>
+        <div class='ace-btns'>
+          <div class='btn-child' @click="closeFun('copyVisible', false)">
+            <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>关闭</span>
           </div>
         </div>
@@ -171,27 +133,21 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import {
-  simplePut,
-  maxList,
-} from "@/api";
-import {percentage} from "@/tool";
+import {mapState} from 'vuex'
+import {simplePut} from '@/api'
+import {percentage} from '@/tool'
 
+// noinspection JSUnresolvedReference
 export default {
-  name: "",
-  props: {},
   data() {
     return {
       percentage,
       mkdirVisible: false,
-      mkdirName: "",
-    };
+      mkdirName: ''
+    }
   },
   computed: mapState({
-    // 箭头函数可使代码更简练
     path: (state) => state.path,
-    uploadList: (state) => state.uploadList,
     selections: (state) => state.selections,
     copys: (state) => state.copys,
     copyPath: (state) => state.copyPath,
@@ -207,186 +163,148 @@ export default {
   }),
   watch: {
     path() {
-      this.refresh();
-    },
-  },
-  created() {
-  },
-  async mounted() {
+      this.refresh()
+    }
   },
   methods: {
     mkdirFileClick() {
-      this.mkdirName = "";
-      this.mkdirVisible = true;
+      this.mkdirName = ''
+      this.mkdirVisible = true
     },
     closeFun(name, data) {
-      this.$store.commit("stateUpdate", {name, data});
+      this.$store.commit('stateUpdate', {name, data})
     },
     async downloadAddressClick() {
       if (this.selections.length < 1) {
-        return;
+        return
       }
-      let list = await this.$store.dispatch("getfiles", this.selections);
-      let filteredList = list.filter(item => !item.name.endsWith('/'));
-      const textToSave = filteredList.map(item => item.url).join('\n');
-      const blob = new Blob([textToSave], {type: 'text/plain'});
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = "files_list.txt";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      let list = await this.$store.dispatch('getfiles', this.selections)
+      let filteredList = list.filter(item => !item.name.endsWith('/'))
+      const textToSave = filteredList.map(item => item.url).join('\n')
+      const blob = new Blob([textToSave], {type: 'text/plain'})
+      // noinspection JSCheckFunctionSignatures
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'files_list.txt'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
     },
     operationClick(type) {
       if (this.selections.length < 1) {
-        this.$message.error("错误，勾选数据为空");
-        return;
+        this.$message.error('错误，勾选数据为空')
+        return
       }
-      if (type === "delete") {
-        this.$store.commit("stateUpdate", {
-          name: "deleteVisible",
-          data: true,
-        });
+      if (type === 'delete') {
+        this.$store.commit('stateUpdate', {
+          name: 'deleteVisible',
+          data: true
+        })
       }
     },
-    /*
-      由于SDK限制每次所请求的目录内文件最多返回1000个文件
-      该方法递归循环子目录文件列表
-    */
-    async infiniteList(nextMarker) {
-      let max = nextMarker;
-      let flag = true;
-      let files = [];
-      while (flag) {
-        const res = await maxList(max);
-        max = res.nextMarker;
-        flag = res.isTruncated;
-        files.push(...res.objects);
-      }
-      return files;
-    },
-
-    // 粘贴文件
     async pasteClick() {
-      // emptys 参数为剪切模式的所需删除文件列表
-      this.$store.dispatch("pasteClick", {emptys: this.copys});
+      await this.$store.dispatch('pasteClick', {emptys: this.copys})
     },
-    // 取消粘贴
     cancelPasteClick() {
-      this.$store.commit("stateUpdate", {name: "copys", data: []});
+      this.$store.commit('stateUpdate', {name: 'copys', data: []})
     },
-    // 裁剪/复制
     async copyClick(type) {
-      this.$store.commit("stateUpdate", {name: "shear", data: type});
-      this.$store.commit("stateUpdate", {
-        name: "copys",
-        data: this.selections,
-      });
-      this.$store.commit("stateUpdate", {name: "copyPath", data: this.path});
+      this.$store.commit('stateUpdate', {name: 'shear', data: type})
+      this.$store.commit('stateUpdate', {name: 'copys', data: this.selections})
+      this.$store.commit('stateUpdate', {name: 'copyPath', data: this.path})
     },
-    // 批量删除
     async deleteFile() {
-      this.$store.dispatch("deleteFile", this.selections);
+      await this.$store.dispatch('deleteFile', this.selections)
     },
-    // 创建目录
     async mkdirClick() {
-      // 检测字符串是否全为空格
-      let empty = this.mkdirName.match(/^\s+$/);
-      // 空字符串和全空格，抛出异常
+      let empty = this.mkdirName.match(/^\s+$/)
       if (empty != null || !this.mkdirName) {
-        this.$message.error("目录名称非法");
-        return;
+        this.$message.error('目录名称非法')
+        return
       }
-      // 关闭对话框
-      this.mkdirVisible = false;
-      // 创建目录
-      await simplePut(`${this.path}${this.mkdirName}/`, new Blob([""]));
-      // 更新【文件/目录】列表
-      this.$store.dispatch("fileUpdate");
+      this.mkdirVisible = false
+      await simplePut(`${this.path}${this.mkdirName}/`, new Blob(['']))
+      await this.$store.dispatch('fileUpdate')
     },
     handleClose(none) {
-      none();
+      none()
     },
     dirUpload(e) {
-      let files = Array.from(e.target.files);
-      e.target.value = "";
+      let files = Array.from(e.target.files)
+      e.target.value = ''
       files.map((file) => {
-        this.$store.dispatch("sliceUpload", {file});
-      });
+        this.$store.dispatch('sliceUpload', {file})
+      })
     },
-    // 刷新
     async refresh() {
-      await this.$store.dispatch("fileUpdate");
+      await this.$store.dispatch('fileUpdate')
     },
-    // 后退
     pathBack() {
-      let path = this.path;
-      let paths = path.split("/");
-      paths.splice(paths.length - 2, 1);
-      this.$store.commit("stateUpdate", {
-        name: "path",
-        data: paths.join("/"),
-      });
-      this.refresh();
+      let path = this.path
+      let paths = path.split('/')
+      paths.splice(paths.length - 2, 1)
+      this.$store.commit('stateUpdate', {
+        name: 'path',
+        data: paths.join('/')
+      })
+      this.refresh()
     },
     suffixIconTool(row) {
       if (row.dir) {
-        return "#icon-wenjianjia";
+        return '#icon-wenjianjia'
       }
-      let icon = "#icon-wendang1";
-      let names = row.name.split(".");
-      let suffix = names[names.length - 1];
-      suffix === "zip" && (icon = "#icon-yasuobao");
-      suffix === "pdf" && (icon = "#icon-pdf");
-      suffix === "docx" && (icon = "#icon-WORD");
-      suffix === "doc" && (icon = "#icon-WORD");
-      suffix === "md" && (icon = "#icon-file-markdown");
-      suffix === "vue" && (icon = "#icon-Vue");
-      suffix === "java" && (icon = "#icon-java");
-      suffix === "js" && (icon = "#icon-js");
-      suffix === "jsx" && (icon = "#icon-jsx");
-      suffix === "php" && (icon = "#icon-php");
-      suffix === "css" && (icon = "#icon-CSS1");
-      suffix === "less" && (icon = "#icon-CSS1");
-      suffix === "scss" && (icon = "#icon-CSS1");
-      suffix === "xlsx" && (icon = "#icon-xlsx");
-      suffix === "json" && (icon = "#icon-JSON");
-      suffix === "txt" && (icon = "#icon-TXT");
-      suffix === "png" && (icon = "#icon-huabanfuben");
-      suffix === "jpg" && (icon = "#icon-huabanfuben");
-      suffix === "jpeg" && (icon = "#icon-huabanfuben");
-      suffix === "gif" && (icon = "#icon-huabanfuben");
-      suffix === "webp" && (icon = "#icon-huabanfuben");
-      suffix === "svg" && (icon = "#icon-huabanfuben");
-      suffix === "icon" && (icon = "#icon-huabanfuben");
-      suffix === "psd" && (icon = "#icon-PSDtubiao");
-      suffix === "exe" && (icon = "#icon-windows");
-      suffix === "html" && (icon = "#icon-chrome");
-      suffix === "htm" && (icon = "#icon-chrome");
-      suffix === "xml" && (icon = "#icon-xml");
-      suffix === "ts" && (icon = "#icon-ts");
-      return icon;
-    },
-  },
-};
+      let icon = '#icon-wendang1'
+      let names = row.name.split('.')
+      let suffix = names[names.length - 1]
+      suffix === 'zip' && (icon = '#icon-yasuobao')
+      suffix === 'pdf' && (icon = '#icon-pdf')
+      suffix === 'docx' && (icon = '#icon-WORD')
+      suffix === 'doc' && (icon = '#icon-WORD')
+      suffix === 'md' && (icon = '#icon-file-markdown')
+      suffix === 'vue' && (icon = '#icon-Vue')
+      suffix === 'java' && (icon = '#icon-java')
+      suffix === 'js' && (icon = '#icon-js')
+      suffix === 'jsx' && (icon = '#icon-jsx')
+      suffix === 'php' && (icon = '#icon-php')
+      suffix === 'css' && (icon = '#icon-CSS1')
+      suffix === 'less' && (icon = '#icon-CSS1')
+      suffix === 'scss' && (icon = '#icon-CSS1')
+      suffix === 'xlsx' && (icon = '#icon-xlsx')
+      suffix === 'json' && (icon = '#icon-JSON')
+      suffix === 'txt' && (icon = '#icon-TXT')
+      suffix === 'png' && (icon = '#icon-huabanfuben')
+      suffix === 'jpg' && (icon = '#icon-huabanfuben')
+      suffix === 'jpeg' && (icon = '#icon-huabanfuben')
+      suffix === 'gif' && (icon = '#icon-huabanfuben')
+      suffix === 'webp' && (icon = '#icon-huabanfuben')
+      suffix === 'svg' && (icon = '#icon-huabanfuben')
+      suffix === 'icon' && (icon = '#icon-huabanfuben')
+      suffix === 'psd' && (icon = '#icon-PSDtubiao')
+      suffix === 'exe' && (icon = '#icon-windows')
+      suffix === 'html' && (icon = '#icon-chrome')
+      suffix === 'htm' && (icon = '#icon-chrome')
+      suffix === 'xml' && (icon = '#icon-xml')
+      suffix === 'ts' && (icon = '#icon-ts')
+      return icon
+    }
+  }
+}
 </script>
 
-
-<style lang="css">
+<style lang='css'>
+/* noinspection CssUnusedSymbol */
 .clip-dialog .el-dialog {
   margin: 0 auto;
 }
 </style>
 
-
-<style scoped lang="css">
+<style scoped lang='css'>
 .ace-btns {
   height: 30px;
   display: flex;
   align-items: center;
-  box-sizing: border-box;
   margin-right: 0;
   user-select: none;
 
@@ -394,8 +312,7 @@ export default {
     height: 30px;
     min-width: 40px;
     padding: 0 8px;
-    background-color: #fff;
-    box-sizing: border-box;
+    background-color: white;
     border: 1px solid rgba(136, 136, 136, 0.3);
     border-right: 0;
     display: flex;
@@ -405,7 +322,7 @@ export default {
     position: relative;
     overflow: hidden;
 
-    input[type="file"] {
+    input[type='file'] {
       opacity: 0;
       position: absolute;
       left: 0;
@@ -421,20 +338,20 @@ export default {
     }
 
     > .icon-jia {
-      color: #3c763d;
+      color: #3C763D;
       font-weight: 700;
     }
 
     > .icon-shangchuan {
-      color: #31708f;
+      color: #31708F;
     }
 
     &:hover {
-      background-color: #e6e6e6;
+      background-color: #E6E6E6;
     }
 
     &:active {
-      background-color: #f5f5f5;
+      background-color: #F5F5F5;
     }
   }
 }
@@ -447,7 +364,6 @@ export default {
   align-items: center;
   padding-right: 16px;
   position: relative;
-  box-sizing: border-box;
   cursor: pointer;
 
   > .paste-child {
@@ -458,11 +374,11 @@ export default {
     align-items: center;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: #F5F5F5;
     }
 
     > i {
-      color: #409eff;
+      color: #409EFF;
     }
 
     > span {
@@ -485,7 +401,7 @@ export default {
     cursor: pointer;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: #F5F5F5;
     }
   }
 }
@@ -495,18 +411,17 @@ export default {
   width: 100%;
   height: 100px;
   padding: 0 8px;
-  box-sizing: border-box;
 
   > span:nth-child(1) {
     display: block;
     margin-top: 14px;
     font-size: 16px;
-    color: #888;
+    color: #888888;
   }
 
   > span:nth-child(3) {
     font-size: 13px;
-    color: #000;
+    color: black;
     font-weight: 700;
     margin-top: 6px;
   }
@@ -515,14 +430,14 @@ export default {
     display: block;
     margin-top: 14px;
     font-size: 16px;
-    color: #888;
+    color: #888888;
   }
 
   .copy-child,
   .delete-child {
     width: 100%;
     height: 22px;
-    background-color: #f5f5f5;
+    background-color: #F5F5F5;
     border-radius: 4px;
     overflow: hidden;
     margin-top: 10px;
@@ -530,20 +445,17 @@ export default {
     > span:nth-child(1) {
       height: 100%;
       display: block;
-      background-color: #5cb85c;
+      background-color: #5CB85C;
     }
   }
 }
-</style>
 
-<style scoped lang="css">
 .mkdir {
   width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  box-sizing: border-box;
   border-top: 1px solid rgba(136, 136, 136, 0.3);
 
   > span {
@@ -557,12 +469,11 @@ export default {
   width: 100%;
   height: 40px;
   border-top: 1px solid rgba(136, 136, 136, 0.3);
-  background-color: #f6f6f6;
+  background-color: #F6F6F6;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 0 6px;
-  box-sizing: border-box;
 
   .ace-btns {
     .btn-child {
@@ -576,11 +487,11 @@ export default {
     }
 
     .btn-child:nth-child(1) {
-      background-color: #5cb85c;
-      color: #fff;
+      background-color: #5CB85C;
+      color: white;
 
       &:hover {
-        background-color: #449d44;
+        background-color: #449D44;
       }
 
       &:active {
@@ -588,7 +499,7 @@ export default {
       }
 
       > i {
-        color: #fff;
+        color: white;
         margin-top: 1px;
       }
     }
@@ -598,7 +509,7 @@ export default {
 .delete-list {
   width: 100%;
   padding: 4px 10px;
-  box-sizing: border-box;
+
   margin-top: 0;
   height: 400px;
   overflow: auto;
@@ -611,31 +522,26 @@ export default {
 
     > span {
       margin-left: 5px;
-      color: #333;
+      color: #333333;
       font-size: 14px;
     }
   }
 }
-</style>
 
-<style scoped lang="css">
 .file-header {
   width: 100%;
   height: 75px;
-  box-sizing: border-box;
 
   > .top {
     width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
     padding: 0 10px;
 
     .ace-path {
       width: 100%;
-      background-color: #fff;
-      box-sizing: border-box;
+      background-color: white;
       height: 30px;
       border: 1px solid rgba(136, 136, 136, 0.3);
       border-right: 0;
@@ -644,7 +550,7 @@ export default {
       padding-left: 10px;
 
       > span {
-        color: #555;
+        color: #555555;
         font-weight: 900;
         font-size: 13px;
       }
@@ -654,12 +560,10 @@ export default {
   > .bottom {
     width: 100%;
     height: 35px;
-    background-color: #fff;
-    box-sizing: border-box;
+    background-color: white;
     padding: 0 10px;
     border-bottom: 1px solid rgba(136, 136, 136, 0.3);
     display: flex;
   }
 }
 </style>
-
