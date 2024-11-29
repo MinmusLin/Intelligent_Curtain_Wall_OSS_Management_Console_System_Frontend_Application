@@ -359,7 +359,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="css">
 .el-table th > .cell {
   font-size: 13px;
   font-weight: 700;
@@ -367,7 +367,7 @@ export default {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .rename-path {
   width: 100%;
   height: 40px;
@@ -394,7 +394,7 @@ export default {
 .mkdir-btn {
   width: 100%;
   height: 40px;
-  border-top: 1px solid rgba($color: #888, $alpha: 0.2);
+  border-top: 1px solid rgba(136, 136, 136, 0.3);
   background-color: #f6f6f6;
   display: flex;
   align-items: center;
@@ -406,7 +406,7 @@ export default {
     display: flex;
 
     .btn-child {
-      border: 1px solid rgba($color: #888, $alpha: 0.2);
+      border: 1px solid rgba(136, 136, 136, 0.3);
       border-radius: 5px;
       margin-left: 10px;
 
@@ -480,7 +480,7 @@ export default {
     padding: 0 8px;
     background-color: #fff;
     box-sizing: border-box;
-    border: 1px solid rgba($color: #888, $alpha: 0.3);
+    border: 1px solid rgba(136, 136, 136, 0.3);
     border-right: 0px;
     display: flex;
     justify-content: center;
@@ -524,7 +524,7 @@ export default {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .fileList {
   width: 100%;
   overflow: auto;

@@ -200,13 +200,13 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="css">
 .el-tabs--border-card > .el-tabs__content {
   padding: 0;
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .data-pass {
   width: 600px;
   position: absolute;
@@ -223,7 +223,7 @@ export default {
       height: 40px;
       padding-left: 10px;
       box-sizing: border-box;
-      border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
     }
     .upload-list {
       width: 100%;
@@ -233,7 +233,7 @@ export default {
       .upload-item {
         width: 100%;
         height: 50px;
-        border-bottom: 1px solid rgba($color: #888, $alpha: 0.3);
+        border-bottom: 1px solid rgba(136, 136, 136, 0.3);
         padding-left: 10px;
         box-sizing: border-box;
         display: flex;
@@ -268,7 +268,6 @@ export default {
         }
         .upload-status {
           width: 100px;
-          //   margin-left: 30px;
           text-align: center;
           color: #337ab7;
           font-size: 13px;
@@ -309,7 +308,7 @@ export default {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .upload-btns {
   height: 40px;
   display: flex;
@@ -320,7 +319,7 @@ export default {
     height: 30px;
     background-color: #fff;
     box-sizing: border-box;
-    border: 1px solid rgba($color: #888, $alpha: 0.3);
+    border: 1px solid rgba(136, 136, 136, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;

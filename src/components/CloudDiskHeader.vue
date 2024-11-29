@@ -375,20 +375,20 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style lang="css">
 .clip-dialog .el-dialog {
   margin: 0 auto;
 }
 </style>
 
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .ace-btns {
   height: 30px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  margin-right: 0px;
+  margin-right: 0;
   user-select: none;
 
   .btn-child {
@@ -397,8 +397,8 @@ export default {
     padding: 0 8px;
     background-color: #fff;
     box-sizing: border-box;
-    border: 1px solid rgba($color: #888, $alpha: 0.3);
-    border-right: 0px;
+    border: 1px solid rgba(136, 136, 136, 0.3);
+    border-right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -442,8 +442,8 @@ export default {
 
 .paste {
   height: 30px;
-  border: 1px solid rgba($color: #000000, $alpha: 0.1);
-  border-left: 0px;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  border-left: 0;
   display: flex;
   align-items: center;
   padding-right: 16px;
@@ -479,7 +479,7 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    border-left: 1px solid rgba($color: #888, $alpha: 0.2);
+    border-left: 1px solid rgba(136, 136, 136, 0.3);
     position: absolute;
     right: 0;
     top: 0;
@@ -537,7 +537,7 @@ export default {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .mkdir {
   width: 100%;
   height: 100px;
@@ -545,7 +545,7 @@ export default {
   align-items: center;
   padding: 10px 20px;
   box-sizing: border-box;
-  border-top: 1px solid rgba($color: #888, $alpha: 0.2);
+  border-top: 1px solid rgba(136, 136, 136, 0.3);
 
   > span {
     width: 120px;
@@ -557,7 +557,7 @@ export default {
 .mkdir-btn {
   width: 100%;
   height: 40px;
-  border-top: 1px solid rgba($color: #888, $alpha: 0.2);
+  border-top: 1px solid rgba(136, 136, 136, 0.3);
   background-color: #f6f6f6;
   display: flex;
   align-items: center;
@@ -567,7 +567,7 @@ export default {
 
   .ace-btns {
     .btn-child {
-      border: 1px solid rgba($color: #888, $alpha: 0.2);
+      border: 1px solid rgba(136, 136, 136, 0.3);
       border-radius: 5px;
       margin-left: 10px;
 
@@ -600,7 +600,7 @@ export default {
   width: 100%;
   padding: 4px 10px;
   box-sizing: border-box;
-  margin-top: 0px;
+  margin-top: 0;
   height: 400px;
   overflow: auto;
 
@@ -619,7 +619,7 @@ export default {
 }
 </style>
 
-<style scoped lang="scss">
+<style scoped lang="css">
 .file-header {
   width: 100%;
   height: 75px;
@@ -638,8 +638,8 @@ export default {
       background-color: #fff;
       box-sizing: border-box;
       height: 30px;
-      border: 1px solid rgba($color: #888, $alpha: 0.3);
-      border-right: 0px;
+      border: 1px solid rgba(136, 136, 136, 0.3);
+      border-right: 0;
       display: flex;
       align-items: center;
       padding-left: 10px;
@@ -658,7 +658,7 @@ export default {
     background-color: #fff;
     box-sizing: border-box;
     padding: 0 10px;
-    border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
     display: flex;
   }
 }
