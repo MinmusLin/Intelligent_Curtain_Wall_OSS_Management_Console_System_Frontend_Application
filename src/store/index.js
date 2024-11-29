@@ -33,7 +33,8 @@ export default new Vuex.Store({
         deleteConfirm: false,
         deleteTotal: 0,
         deleteVisible: false,
-        state: false
+        state: false,
+        shear: null
     },
     mutations: {
         /**
