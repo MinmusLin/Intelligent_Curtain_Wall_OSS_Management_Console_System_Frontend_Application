@@ -1,21 +1,25 @@
 <template>
   <div v-loading='loading' class='page-container'>
-    <img src='png/top-left.png' alt='top-left' class='top-left' />
+    <img src='/png/top-left.png' alt='top-left' class='top-left'/>
     <div class='login-container'>
-      <img src='favicon.png' alt='favicon' class='favicon' />
+      <img src='/favicon.png' alt='favicon' class='favicon'/>
       <h1>欢迎登录系统</h1>
-      <h4>智慧幕墙数据集管理系统</h4>
-      <div style='display: flex; flex-direction: column; justify-content: center; align-items: center;'>
+      <h4>智慧幕墙数据集管理平台</h4>
+      <div style='display: flex; flex-direction: column; justify-content: center; align-items: center'>
         <el-select v-model='user' placeholder='请选择账号' style='width: 380px;'>
-          <el-option v-for='item in accounts' :key='item.name' :label='item.subsystem' :value='item.name' />
+          <el-option v-for='item in accounts' :key='item.name' :label='item.subsystem' :value='item.name'/>
         </el-select>
-        <el-input v-model='password' type='password' placeholder='请输入密码' show-password style='width: 380px; margin: 25px 0;' />
-        <el-button type='primary' @click='login' style='width: 380px; margin: 10px 0;'>登录</el-button>
+        <el-input v-model='password'
+                  type='password'
+                  placeholder='请输入密码'
+                  style='width: 380px; margin: 25px 0'
+                  show-password/>
+        <el-button type='primary' @click='login' style='width: 380px; margin: 10px 0'>登录</el-button>
       </div>
-      <el-button type='text' class='guide'>使用指南</el-button>
+      <el-button type='text' class='guide'>平台使用指南</el-button>
     </div>
-    <img src='png/illustration.png' alt='illustration' class='illustration' />
-    <img src='png/bottom-right.png' alt='bottom-right' class='bottom-right' />
+    <img src='/png/illustration.png' alt='illustration' class='illustration'/>
+    <img src='/png/bottom-right.png' alt='bottom-right' class='bottom-right'/>
   </div>
 </template>
 
@@ -165,6 +169,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  user-select: none;
 
   .top-left {
     position: relative;
@@ -179,19 +184,21 @@ export default {
     height: 600px;
     width: 480px;
     border-radius: 20px;
-    box-shadow: 0 10px 40px  rgba(158, 195, 255, 0.51);
+    box-shadow: 0 10px 40px rgba(158, 195, 255, 0.51);
     padding: 20px;
+    z-index: 2;
+    background-color: white;
 
-    .favicon{
-      width:100px;
-      height:auto;
+    .favicon {
+      width: 100px;
+      height: auto;
       position: relative;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    h1{
+    h1 {
       margin-top: 40px;
       text-align: center;
       font-size: 36px;
@@ -201,7 +208,7 @@ export default {
       vertical-align: top;
     }
 
-    h4{
+    h4 {
       margin-top: 20px;
       margin-bottom: 30px;
       font-size: 16px;

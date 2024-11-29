@@ -74,6 +74,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    user-select: none;
   }
 }
 </style>

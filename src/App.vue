@@ -71,6 +71,10 @@ export default {
 body {
   font-size: 12px;
 }
+
+img {
+  -webkit-user-drag: none;
+}
 </style>
 
 <style scoped lang='css'>
