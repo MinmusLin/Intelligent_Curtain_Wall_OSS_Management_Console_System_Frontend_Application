@@ -13,6 +13,7 @@
       <el-table-column label='名称'>
         <div slot-scope='scope' class='file-name'>
           <svg class='icon' aria-hidden='true'>
+            <!--suppress HtmlUnknownAttribute-->
             <use :xlink:href='suffixIconTool(scope.row)'/>
           </svg>
           <span style='color: #337AB7; cursor: pointer' @click='fileNameClick(scope.row)'>
@@ -53,23 +54,21 @@
     </el-table>
     <el-dialog title='重命名'
                :visible.sync='renameVisible'
-               width='400px'
+               width='500px'
                :before-close='handleClose'
-               append-to-body
-               :close-on-click-modal='false'>
+               append-to-body>
       <div class='rename-path'>
-        <span>重命名</span>
-        <el-input v-model='rename.to' :spellcheck='false' style='width: 240px'/>
+        <el-input v-model='rename.to' :spellcheck='false' style='width: 100%'/>
       </div>
       <div class='mkdir-btn'>
         <div class='ace-btns'>
-          <div class='btn-child' @click='renameConfirm'>
-            <i class='iconfont icon-queding1'/>
-            <span>确定</span>
-          </div>
           <div class='btn-child' @click='renameVisible=false'>
             <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>取消</span>
+          </div>
+          <div class='btn-child' @click='renameConfirm'>
+            <i class='iconfont icon-queding1'/>
+            <span>确定</span>
           </div>
         </div>
       </div>
@@ -291,125 +290,65 @@ export default {
 </script>
 
 <style lang='css'>
-.el-table th > .cell {
-  font-size: 13px;
-  font-weight: 700;
-  color: #888888;
-}
-
+/* noinspection CssUnusedSymbol */
 .el-dialog__body {
   padding: 0;
-}
-
-.form-outer {
-  padding: 0 20px;
-
-  .form-inner {
-    padding: 0;
-  }
 }
 </style>
 
 <style scoped lang='css'>
 .rename-path {
   width: 100%;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-
-  > span:nth-child(1) {
-    width: 70px;
-    display: block;
-    font-size: 16px;
-    font-weight: 700;
-    color: #606266;
-    margin-right: 10px;
-  }
-
-  > input {
-    width: 100px;
-  }
+  padding: 0 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .mkdir-btn {
   width: 100%;
-  height: 40px;
+  height: 50px;
   border-top: 1px solid rgba(136, 136, 136, 0.3);
   background-color: #F6F6F6;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 6px;
-  box-sizing: border-box;
+  padding: 0 15px;
 
   .ace-btns {
-    display: flex;
-
     .btn-child {
       border: 1px solid rgba(136, 136, 136, 0.3);
       border-radius: 5px;
       margin-left: 10px;
 
       > i {
-        margin-top: 1px;
+        transform: translateY(1px);
       }
     }
 
-    .btn-child:nth-child(1) {
+    .btn-child:nth-child(2) {
       background-color: #5CB85C;
       color: white;
 
       &:hover {
         background-color: #449D44;
       }
-
-      &:active {
-        background-color: #398439;
-      }
-
-      > i {
-        color: white;
-        margin-top: 1px;
-      }
     }
   }
 }
 
 .ace-btns {
-  height: 30px;
   display: flex;
   align-items: center;
-  box-sizing: border-box;
-  margin-right: 0;
   user-select: none;
 
   .btn-child {
     height: 30px;
-    min-width: 40px;
     padding: 0 8px;
     background-color: white;
-    box-sizing: border-box;
     border: 1px solid rgba(136, 136, 136, 0.3);
-    border-right: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-
-    input[type='file'] {
-      opacity: 0;
-      position: absolute;
-      left: 0;
-      top: -100%;
-      width: 100%;
-      height: 200%;
-      cursor: pointer;
-    }
 
     > span {
       font-size: 14px;
@@ -419,15 +358,9 @@ export default {
     &:hover {
       background-color: #E6E6E6;
     }
-
-    &:active {
-      background-color: #F5F5F5;
-    }
   }
 }
-</style>
 
-<style scoped lang='css'>
 .file-list {
   width: 100%;
   overflow: auto;
@@ -447,14 +380,11 @@ export default {
     }
   }
 
-  span {
-    font-size: 14px;
-  }
-
   .ace-operation {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    gap: 6px;
   }
 }
 
@@ -465,9 +395,5 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
-  > img {
-    max-height: 100%;
-  }
 }
 </style>
