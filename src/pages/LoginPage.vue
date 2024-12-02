@@ -64,7 +64,7 @@ export default {
     },
     async authenticate(userName, password) {
       try {
-        const response = await this.$axios.post('authenticate', {
+        const response = await this.$axios.post('authenticate/', {
           userName: userName,
           password: password
         })
