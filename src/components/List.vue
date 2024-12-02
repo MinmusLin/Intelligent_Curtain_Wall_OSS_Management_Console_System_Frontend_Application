@@ -32,23 +32,19 @@
         <div class='ace-operation' slot-scope='scope'>
           <div @click='getUrl(scope.row.name)'
                v-if='!scope.row.dir'
-               type='text'
                style='font-size: 15px; font-weight: 700; color: #409EFF; cursor: pointer'>
             获取地址
           </div>
           <div @click='downloadClick(scope.row)'
                v-if='!scope.row.dir'
-               type='text'
                style='font-size: 15px; font-weight: 700; color: #409EFF; cursor: pointer'>
             下载
           </div>
-          <div type='text'
-               @click='renameClick(scope.row)'
+          <div @click='renameClick(scope.row)'
                style='font-size: 15px; font-weight: 700; color: #888888; cursor: pointer'>
             重命名
           </div>
           <div @click='deleteKeyTool(scope.row)'
-               type='text'
                style='font-size: 15px; font-weight: 700; color: #F56C6C; cursor: pointer'>
             删除
           </div>
@@ -138,8 +134,7 @@ export default {
       vm.tableHeight = oss - (160)
     },
     async downloadClick(row) {
-      let url = await signatureUrl(row.name)
-      download(url, this.dirTitleTool(row))
+      download(signatureUrl(row.name, {}), this.dirTitleTool(row))
     },
     getUrl(name) {
       navigator.clipboard.writeText('http://110.42.214.164:8005/oss/download/' + name).then(() => {
@@ -164,7 +159,7 @@ export default {
         type: 'warning'
       }).then(async () => {
         await deleteKey(row.name)
-        this.$store.dispatch('fileUpdate')
+        await this.$store.dispatch('fileUpdate')
       })
     },
     async renameConfirm() {
@@ -186,7 +181,7 @@ export default {
       } else {
         copy(`${this.path}${to}`, `${this.path}${from}`).then(async () => {
           await deleteKey(`${this.path}${from}`)
-          _this.$store.dispatch('fileUpdate')
+          await _this.$store.dispatch('fileUpdate')
           _this.renameVisible = false
         })
       }
@@ -203,6 +198,7 @@ export default {
       this.$store.commit('stateUpdate', {name: 'selections', data: rows})
     },
     dropFile(event) {
+      // noinspection JSDeprecatedSymbols
       event = window.event || event
       event.preventDefault()
       event.stopPropagation()
@@ -212,7 +208,7 @@ export default {
       })
     },
     async refresh() {
-      this.$store.dispatch('fileUpdate')
+      await this.$store.dispatch('fileUpdate')
     },
     async fileNameClick(row) {
       let suffix = row.name.split('.')
