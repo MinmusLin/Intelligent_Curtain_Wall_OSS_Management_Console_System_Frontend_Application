@@ -1,3 +1,5 @@
+<!--suppress HtmlDeprecatedAttribute-->
+
 <template>
   <div class='file-list' @dragover.prevent @drop='dropFile'>
     <el-table stripe
