@@ -248,6 +248,7 @@ export default {
       event = window.event || event
       event.preventDefault()
       event.stopPropagation()
+      // noinspection JSUnresolvedReference
       let files = Array.from(event.dataTransfer.files)
       files.map((file) => {
         this.$store.dispatch('sliceUpload', {file})
