@@ -2,14 +2,15 @@
 
 <template>
   <div class='file-list' @dragover.prevent @drop='dropFile'>
-    <el-table stripe
+    <el-table v-if='path'
+              stripe
               :data='ossList'
               ref='fileList'
               v-loading='loading'
               :max-height='tableHeight'
               style='width: 100%'
               @selection-change='toggleRowSelection'>
-      <el-table-column type='selection' width='34'/>
+      <el-table-column type='selection' width='35'/>
       <el-table-column label='名称'>
         <div slot-scope='scope' class='file-name'>
           <svg class='icon' aria-hidden='true'>
@@ -53,7 +54,34 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title='重命名文件'
+    <el-table v-if='!path'
+              stripe
+              :data='ossList'
+              ref='fileList'
+              v-loading='loading'
+              :max-height='tableHeight'
+              style='width: 100%'
+              @selection-change='toggleRowSelection'>
+      <el-table-column type='selection' width='35'/>
+      <el-table-column label='数据集'>
+        <div slot-scope='scope' class='file-name'>
+          <svg class='icon' aria-hidden='true'>
+            <!--suppress HtmlUnknownAttribute-->
+            <use :xlink:href='suffixIconTool(scope.row)'/>
+          </svg>
+          <span style='color: #337AB7; cursor: pointer' @click='datasetClick(scope.row)'>
+            {{ dirTitleTool(scope.row) }}
+          </span>
+        </div>
+      </el-table-column>
+      <el-table-column label='子系统' width='400'>
+        <span slot-scope='scope'>
+          {{ getSubsystemByName(scope.row.name) }}
+        </span>
+      </el-table-column>
+    </el-table>
+
+    <el-dialog title='重命名'
                :visible.sync='renameVisible'
                width='500px'
                :before-close='handleClose'
@@ -113,7 +141,19 @@ export default {
       imgPreviewVisible: false,
       imgPreviewName: '',
       downloadAddress: {},
-      tableHeight: 0
+      tableHeight: 0,
+      accounts: [
+        {name: 'corrosion-detection', subsystem: '金属幕墙锈蚀污损检测系统'},
+        {name: 'crack-detection', subsystem: '石材幕墙裂缝检测系统'},
+        {name: 'flatness-detection', subsystem: '玻璃幕墙平整度检测系统'},
+        {name: 'mobile-data', subsystem: '移动端幕墙数据采集与展示系统'},
+        {name: 'modeling-communication', subsystem: '无人机采集数据的 3D 建模与通讯系统'},
+        {name: 'resilience-assessment', subsystem: '幕墙韧性评估软件系统'},
+        {name: 'spalling-detection', subsystem: '玻璃幕墙爆裂检测系统'},
+        {name: 'stain-detection', subsystem: '石材幕墙污渍检测系统'},
+        {name: 'vibration-detection', subsystem: '幕墙震动数据检测与展示系统'},
+        {name: 'oss-management', subsystem: '智慧幕墙数据集管理平台管理员'}
+      ]
     }
   },
   computed: mapState({
@@ -131,6 +171,20 @@ export default {
     window.addEventListener('resize', () => _this.getHeight(_this))
   },
   methods: {
+    /**
+     * Returns the corresponding subsystem for a given account name.
+     * If no matching account name is found, it returns the provided name.
+     * @param {string} name - The account name to search for.
+     * @returns {string} - The corresponding subsystem if a match is found, or the input name if no match is found.
+     */
+    getSubsystemByName(name) {
+      if (name.endsWith('/')) {
+        name = name.slice(0, -1)
+      }
+      const account = this.accounts.find(account => account.name === name)
+      return account ? account.subsystem : name
+    },
+
     /**
      * Calculate and set the height of the table based on window size.
      * @param {Object} vm - The Vue component instance.
@@ -292,6 +346,37 @@ export default {
       CodeEditor.suffix = '.' + row.name.split('.')[row.name.split('.').length - 1]
       this.$store.commit('stateUpdate', {name: 'CodeEditor', data: CodeEditor})
       this.$store.commit('stateUpdate', {name: 'editorShow', data: true})
+    },
+
+    /**
+     * Handles the click event on a dataset row.
+     * Checks the user's permission and decides whether they can view the dataset.
+     * If the user has permission, it calls the `fileNameClick` method.
+     * If the user doesn't have permission, it shows a notification indicating that access is denied.
+     * @param {Object} row - The dataset row object clicked by the user. This object contains the dataset's metadata.
+     * @returns {Promise<void>} - A promise that resolves when the fileNameClick method is executed, or a notification is shown.
+     */
+    async datasetClick(row) {
+      let ossUserName = window.localStorage.getItem('ossUserName') || ''
+      if (ossUserName !== 'oss-management') {
+        let name = row.name
+        if (name.endsWith('/')) {
+          name = name.slice(0, -1)
+        }
+        if (name === ossUserName) {
+          await this.fileNameClick(row)
+        } else {
+          this.$notify({
+            title: '权限禁止',
+            message: '您没有权限查看此数据集',
+            type: 'error',
+            position: 'top-left',
+            duration: 3000
+          })
+        }
+      } else {
+        await this.fileNameClick(row)
+      }
     },
 
     /**
