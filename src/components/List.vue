@@ -21,15 +21,15 @@
           </span>
         </div>
       </el-table-column>
-      <el-table-column prop='date' label='类型 / 大小' width='130px'>
+      <el-table-column prop='date' label='类型 / 大小' width='140'>
         <span slot-scope='scope'>{{ scope.row.dir ? '目录' : renderSize(scope.row.size) }}</span>
       </el-table-column>
-      <el-table-column label='最后修改时间' width='200'>
+      <el-table-column label='修改时间' width='160'>
         <span slot-scope='scope'>
           {{ scope.row.dir ? '' : dateFormat('YYYY-mm-dd HH:MM', scope.row.lastModified) }}
         </span>
       </el-table-column>
-      <el-table-column label='操作' width='240' header-align='right'>
+      <el-table-column label='操作' width='220' header-align='right'>
         <div class='ace-operation' slot-scope='scope'>
           <div @click='getUrl(scope.row.name)'
                v-if='!scope.row.dir'
@@ -52,7 +52,8 @@
         </div>
       </el-table-column>
     </el-table>
-    <el-dialog title='重命名'
+
+    <el-dialog title='重命名文件'
                :visible.sync='renameVisible'
                width='500px'
                :before-close='handleClose'
@@ -73,19 +74,21 @@
         </div>
       </div>
     </el-dialog>
-    <el-dialog title='图片预览'
+
+    <el-dialog title='图像预览'
                :visible.sync='imgPreviewVisible'
                width='800px'
                :before-close='handleClose'
-               append-to-body
-               :close-on-click-modal='false'>
+               append-to-body>
       <div class='img-preview'>
-        <img :src='imgPreviewUrl' alt='imgPreviewUrl'/>
+        <img v-if='imgPreviewName'
+             :src='`http://110.42.214.164:8005/oss/download/${imgPreviewName}`'
+             alt='imgPreviewName'/>
       </div>
       <div class='mkdir-btn'>
         <div class='ace-btns'>
           <div class='btn-child' @click='imgPreviewVisible=false'>
-            <i class='iconfont icon-dashujukeshihuaico-'></i>
+            <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>关闭</span>
           </div>
         </div>
@@ -108,7 +111,7 @@ export default {
       rename: {},
       renameVisible: false,
       imgPreviewVisible: false,
-      imgPreviewUrl: '',
+      imgPreviewName: '',
       downloadAddress: {},
       tableHeight: 0
     }
@@ -128,13 +131,27 @@ export default {
     window.addEventListener('resize', () => _this.getHeight(_this))
   },
   methods: {
+    /**
+     * Calculate and set the height of the table based on window size.
+     * @param {Object} vm - The Vue component instance.
+     */
     getHeight(vm) {
       let oss = document.querySelector('.web-oss').getBoundingClientRect().height
       vm.tableHeight = oss - (160)
     },
+
+    /**
+     * Initiates file download by calling the download function.
+     * @param {Object} row - The file row object to download.
+     */
     async downloadClick(row) {
       download(signatureUrl(row.name, {}), this.dirTitleTool(row))
     },
+
+    /**
+     * Copies the file URL to the clipboard.
+     * @param {string} name - The file name to generate the URL.
+     */
     getUrl(name) {
       navigator.clipboard.writeText('http://110.42.214.164:8005/oss/download/' + name).then(() => {
         this.$notify({
@@ -146,6 +163,11 @@ export default {
         })
       })
     },
+
+    /**
+     * Deletes a file or directory after confirmation.
+     * @param {Object} row - The file or directory object to delete.
+     */
     async deleteKeyTool(row) {
       if (row.dir) {
         this.$store.commit('stateUpdate', {name: 'selections', data: [{dir: true, name: row.name}]})
@@ -161,6 +183,10 @@ export default {
         await this.$store.dispatch('fileUpdate')
       })
     },
+
+    /**
+     * Confirms renaming of a file or directory and handles the rename operation.
+     */
     async renameConfirm() {
       const _this = this
       this.renameVisible = false
@@ -185,17 +211,38 @@ export default {
         })
       }
     },
+
+    /**
+     * Opens the rename dialog for a file or directory.
+     * @param {Object} row - The file or directory row to rename.
+     */
     renameClick(row) {
       this.renameVisible = true
       let name = row.name.replace(this.path, '').replace('/', '')
       this.rename = {to: name, from: name, dir: row.dir}
     },
+
+    /**
+     * Handles closing of dialogs, clearing preview image data.
+     * @param {Function} none - Callback to close the dialog.
+     */
     handleClose(none) {
+      this.imgPreviewName = ''
       none()
     },
+
+    /**
+     * Toggles row selection in the table.
+     * @param {Array} rows - The selected rows.
+     */
     toggleRowSelection(rows) {
       this.$store.commit('stateUpdate', {name: 'selections', data: rows})
     },
+
+    /**
+     * Handles file drop event to upload files.
+     * @param {Event} event - The drop event.
+     */
     dropFile(event) {
       // noinspection JSDeprecatedSymbols
       event = window.event || event
@@ -206,9 +253,18 @@ export default {
         this.$store.dispatch('sliceUpload', {file})
       })
     },
+
+    /**
+     * Refreshes the file list by dispatching a file update action.
+     */
     async refresh() {
       await this.$store.dispatch('fileUpdate')
     },
+
+    /**
+     * Handles file name click, navigating to directories or previewing files.
+     * @param {Object} row - The clicked file or directory row.
+     */
     async fileNameClick(row) {
       let suffix = row.name.split('.')
       if (row.dir) {
@@ -216,8 +272,7 @@ export default {
         return
       }
       if (this.imgSuffixTool(row.name)) {
-        this.imgPreviewUrl = row.url
-        console.log(this.imgPreviewUrl)
+        this.imgPreviewName = row.name
         this.imgPreviewVisible = true
         return
       }
@@ -237,14 +292,32 @@ export default {
       this.$store.commit('stateUpdate', {name: 'CodeEditor', data: CodeEditor})
       this.$store.commit('stateUpdate', {name: 'editorShow', data: true})
     },
+
+    /**
+     * Checks if the file extension is an image format.
+     * @param {string} name - The file name to check.
+     * @returns {boolean} - Returns true if the file is an image, otherwise false.
+     */
     imgSuffixTool(name) {
       const suffix = name.split('.').pop()
       return ['png', 'jpeg', 'jpg', 'gif', 'webp'].includes(suffix)
     },
+
+    /**
+     * Returns the directory or file name without its path.
+     * @param {Object} param - The row object containing file or directory information.
+     * @returns {string} - The name of the file or directory.
+     */
     dirTitleTool({name, dir}) {
       let names = name.split('/')
       return dir ? names[names.length - 2] : names[names.length - 1]
     },
+
+    /**
+     * Returns the appropriate icon for the file based on its extension.
+     * @param {Object} row - The row object containing the file information.
+     * @returns {string} - The icon's reference.
+     */
     suffixIconTool(row) {
       if (row.dir) {
         return '#icon-wenjianjia'
@@ -395,5 +468,11 @@ export default {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.img-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 </style>
