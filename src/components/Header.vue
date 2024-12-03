@@ -31,6 +31,11 @@ export default {
   mounted() {
     this.ossSubsystem = window.localStorage.getItem('ossSubsystem') || ''
   },
+  watch: {
+    '$route': function () {
+      this.ossSubsystem = window.localStorage.getItem('ossSubsystem') || ''
+    }
+  },
   methods: {
     exit() {
       this.$confirm('是否退出当前账号？', '注销', {
