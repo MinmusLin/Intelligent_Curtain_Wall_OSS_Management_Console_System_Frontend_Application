@@ -73,14 +73,16 @@
       </div>
     </el-dialog>
 
-    <el-dialog :title="deleteConfirm ? '文件删除' : '将删除以下目录和文件'"
+    <el-dialog title='删除文件'
                :visible.sync='deleteVisible'
-               width='600px'
+               width='800px'
                :before-close="() => closeFun('deleteVisible', false)"
                append-to-body>
       <div class='delete-progress' v-if='deleteConfirm'>
         <span>
-          {{ this.deleteTotal > 1000 ? '删除文件数量超限，可能会受到OSS服务器的并发限制，正在删除' : '正在删除' }}
+          {{
+            this.deleteTotal > 1000 ? '正在删除文件 ...（同时删除的文件数量过多，可能会受到阿里云 OSS 的并发请求限制）' : '正在删除文件 ...'
+          }}
         </span>
         <div class='delete-child'>
           <span :style="{ width: percentage(deleteNum, deleteTotal) + '%' }"/>
@@ -88,6 +90,7 @@
         <span>{{ deleteNum }} / {{ deleteTotal }}</span>
       </div>
       <div class='delete-list' v-if='!deleteConfirm'>
+        <span>将删除以下文件：</span>
         <div class='delete-child' v-for='(item, index) in selections' :key='index'>
           <svg class='icon' aria-hidden='true'>
             <!--suppress HtmlUnknownAttribute-->
@@ -98,26 +101,28 @@
       </div>
       <div class='mkdir-btn'>
         <div class='ace-btns'>
-          <div class='btn-child' @click='deleteFile' v-if='!deleteConfirm'>
-            <i class='iconfont icon-queding1'/>
-            <span>确定</span>
-          </div>
           <div class='btn-child' @click="closeFun('deleteVisible', false)">
             <i class='iconfont icon-dashujukeshihuaico-'/>
             <span>关闭</span>
+          </div>
+          <div class='btn-child' @click='deleteFile' v-if='!deleteConfirm'>
+            <i class='iconfont icon-queding1'/>
+            <span>确定</span>
           </div>
         </div>
       </div>
     </el-dialog>
 
-    <el-dialog title='拷贝'
+    <el-dialog title='粘贴文件'
                :visible.sync='copyVisible'
-               width='600px'
+               width='800px'
                :before-close="() => closeFun('copyVisible', false)"
                append-to-body>
       <div class='copy-progress'>
         <span>
-          {{ this.copyTotal > 1000 ? '由于拷贝文件数量超限，可能会受到OSS服务器的并发限制，正在粘贴' : '正在粘贴' }}
+          {{
+            this.copyTotal > 1000 ? '正在粘贴文件 ...（同时删除的文件数量过多，可能会受到阿里云 OSS 的并发请求限制）' : '正在粘贴文件 ...'
+          }}
         </span>
         <div class='copy-child'>
           <span :style="{ width: percentage(copyNum, copyTotal) + '%' }"/>
@@ -448,67 +453,60 @@ export default {
   }
 }
 
-.copy-progress, .delete-progress {
-  width: 100%;
-  height: 100px;
-  padding: 0 8px;
-
-  > span:nth-child(1) {
-    display: block;
-    margin-top: 14px;
-    font-size: 16px;
-    color: #888888;
-  }
-
-  > span:nth-child(3) {
-    font-size: 13px;
-    color: black;
-    font-weight: 700;
-    margin-top: 6px;
-  }
-
-  > span {
-    display: block;
-    margin-top: 14px;
-    font-size: 16px;
-    color: #888888;
-  }
-
-  .copy-child,
-  .delete-child {
-    width: 100%;
-    height: 22px;
-    background-color: #F5F5F5;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-top: 10px;
-
-    > span:nth-child(1) {
-      height: 100%;
-      display: block;
-      background-color: #5CB85C;
-    }
-  }
-}
-
 .delete-list {
-  width: 100%;
-  padding: 4px 10px;
-
-  margin-top: 0;
+  padding: 6px 20px 16px;
   height: 400px;
   overflow: auto;
 
+  > span {
+    color: #2F3235;
+    font-size: 14px;
+  }
+
   .delete-child {
+    margin-top: 5px;
     width: 100%;
     font-size: 15px;
     display: flex;
     align-items: center;
 
     > span {
-      margin-left: 5px;
-      color: #333333;
+      color: #2F3235;
       font-size: 14px;
+      margin: 1px 8px 0;
+    }
+  }
+}
+
+.copy-progress, .delete-progress {
+  width: 100%;
+  height: 110px;
+  padding: 0 20px;
+  color: #2F3235;
+
+  > span:nth-child(3) {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  > span {
+    display: block;
+    margin-top: 14px;
+    font-size: 16px;
+  }
+
+  .copy-child, .delete-child {
+    width: 100%;
+    height: 20px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 16px;
+
+    > span:nth-child(1) {
+      height: 100%;
+      display: block;
+      background-color: #5CB85C;
     }
   }
 }
