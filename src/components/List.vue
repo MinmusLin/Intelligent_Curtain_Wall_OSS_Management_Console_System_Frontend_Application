@@ -81,13 +81,9 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title='重命名'
-               :visible.sync='renameVisible'
-               width='500px'
-               :before-close='handleClose'
-               append-to-body>
+    <el-dialog title='重命名' :visible.sync='renameVisible' width='500px' :before-close='handleClose' append-to-body>
       <div class='rename-path'>
-        <el-input v-model='rename.to' :spellcheck='false' style='width: 100%'/>
+        <el-input v-model='rename.to' :spellcheck='false' style='width: 100%' placeholder='请输入文件名称'/>
       </div>
       <div class='mkdir-btn'>
         <div class='ace-btns'>
