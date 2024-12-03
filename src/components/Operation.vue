@@ -25,11 +25,11 @@
         </div>
         <div class='btn-child' @click='mkdirFileClick'>
           <i class='iconfont icon-jia'/>
-          <span>创建目录</span>
+          <span>目录</span>
         </div>
         <div class='btn-child' @click='downloadAddressClick'>
           <i class='iconfont icon-xiazai3'/>
-          <span>获取地址</span>
+          <span>地址</span>
         </div>
         <div class='btn-child' @click='copyClick(null)'>
           <i class='iconfont icon-fuzhi'/>
@@ -37,7 +37,7 @@
         </div>
         <div class='btn-child' @click='copyClick(true)'>
           <i class='iconfont icon-jianqie'/>
-          <span>移动</span>
+          <span>剪切</span>
         </div>
         <div class='btn-child'
              @click="operationClick('delete')"
@@ -54,24 +54,25 @@
         </div>
       </div>
     </div>
-    <el-dialog title='创建目录' :visible.sync='mkdirVisible' width='400px' :before-close='handleClose' append-to-body>
-      <div class='mkdir'>
-        <span>目录名称</span>
-        <el-input v-model='mkdirName' placeholder='目录名称'/>
+
+    <el-dialog title='创建目录' :visible.sync='mkdirVisible' width='500px' :before-close='handleClose' append-to-body>
+      <div class='mkdir-path'>
+        <el-input v-model='mkdirName' placeholder='请输入目录名称' :spellcheck='false' style='width: 100%'/>
       </div>
       <div class='mkdir-btn'>
         <div class='ace-btns'>
+          <div class='btn-child' @click='mkdirVisible=false'>
+            <i class='iconfont icon-dashujukeshihuaico-'/>
+            <span>取消</span>
+          </div>
           <div class='btn-child' @click='mkdirClick'>
             <i class='iconfont icon-queding1'/>
             <span>确定</span>
           </div>
-          <div class='btn-child' @click='mkdirVisible = false'>
-            <i class='iconfont icon-dashujukeshihuaico-'/>
-            <span>取消</span>
-          </div>
         </div>
       </div>
     </el-dialog>
+
     <el-dialog :title="deleteConfirm ? '文件删除' : '将删除以下目录和文件'"
                :visible.sync='deleteVisible'
                width='600px'
@@ -108,6 +109,7 @@
         </div>
       </div>
     </el-dialog>
+
     <el-dialog title='拷贝'
                :visible.sync='copyVisible'
                width='600px'
@@ -181,7 +183,8 @@ export default {
       }
       let list = await this.$store.dispatch('getfiles', this.selections)
       let filteredList = list.filter(item => !item.name.endsWith('/'))
-      const textToSave = filteredList.map(item => item.url).join('\n')
+      const baseUrl = 'http://110.42.214.164:8005/oss/download/'
+      const textToSave = filteredList.map(item => baseUrl + item.name).join('\n')
       const blob = new Blob([textToSave], {type: 'text/plain'})
       // noinspection JSCheckFunctionSignatures
       const url = URL.createObjectURL(blob)
@@ -199,10 +202,7 @@ export default {
         return
       }
       if (type === 'delete') {
-        this.$store.commit('stateUpdate', {
-          name: 'deleteVisible',
-          data: true
-        })
+        this.$store.commit('stateUpdate', {name: 'deleteVisible', data: true})
       }
     },
     async pasteClick() {
@@ -235,9 +235,7 @@ export default {
     dirUpload(e) {
       let files = Array.from(e.target.files)
       e.target.value = ''
-      files.map((file) => {
-        this.$store.dispatch('sliceUpload', {file})
-      })
+      files.map((file) => this.$store.dispatch('sliceUpload', {file}))
     },
     async refresh() {
       await this.$store.dispatch('fileUpdate')
@@ -246,10 +244,7 @@ export default {
       let path = this.path
       let paths = path.split('/')
       paths.splice(paths.length - 2, 1)
-      this.$store.commit('stateUpdate', {
-        name: 'path',
-        data: paths.join('/')
-      })
+      this.$store.commit('stateUpdate', {name: 'path', data: paths.join('/')})
       this.refresh()
     },
     suffixIconTool(row) {
@@ -295,35 +290,68 @@ export default {
 </script>
 
 <style scoped lang='css'>
-.ace-btns {
-  height: 30px;
+.mkdir-path {
+  width: 100%;
+  padding: 0 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.mkdir-btn {
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid rgba(136, 136, 136, 0.3);
+  background-color: #F6F6F6;
   display: flex;
   align-items: center;
-  margin-right: 0;
+  justify-content: flex-end;
+  padding: 0 15px;
+
+  .ace-btns {
+    .btn-child {
+      border: 1px solid rgba(136, 136, 136, 0.3);
+      border-radius: 5px;
+      margin-left: 10px;
+
+      > i {
+        transform: translateY(1px);
+      }
+    }
+
+    .btn-child:nth-child(2) {
+      background-color: #5CB85C;
+      color: white;
+
+      &:hover {
+        background-color: #449D44;
+      }
+    }
+  }
+}
+
+.ace-btns {
+  display: flex;
+  align-items: center;
   user-select: none;
 
   .btn-child {
     height: 30px;
-    min-width: 40px;
     padding: 0 8px;
     background-color: white;
     border: 1px solid rgba(136, 136, 136, 0.3);
-    border-right: 0;
     display: flex;
-    justify-content: center;
     align-items: center;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    border-right: 0;
 
     input[type='file'] {
       opacity: 0;
       position: absolute;
-      left: 0;
-      top: -100%;
-      width: 100%;
-      height: 200%;
       cursor: pointer;
+      left: 0;
+      top: 0;
+      width: 65px;
+      height: 30px;
     }
 
     > span {
@@ -331,39 +359,31 @@ export default {
       margin-left: 3px;
     }
 
-    > .icon-jia {
-      color: #3C763D;
-      font-weight: 700;
-    }
-
-    > .icon-shangchuan {
-      color: #31708F;
-    }
-
     &:hover {
       background-color: #E6E6E6;
     }
 
-    &:active {
-      background-color: #F5F5F5;
+    i {
+      transform: translateY(1px);
     }
   }
 }
 
 .paste {
   height: 30px;
+  background-color: white;
   border: 1px solid rgba(136, 136, 136, 0.3);
-  border-left: 0;
   display: flex;
   align-items: center;
-  padding-right: 16px;
-  position: relative;
   cursor: pointer;
+  border-left: 0;
+  position: relative;
+  padding-right: 16px;
 
   > .paste-child {
     width: 100%;
     height: 100%;
-    padding-right: 4px;
+    padding: 0 6px;
     display: flex;
     align-items: center;
 
@@ -373,13 +393,11 @@ export default {
 
     > i {
       color: #409EFF;
+      transform: translateY(1px);
     }
 
     > span {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      margin-left: 2px;
+      margin-left: 4px;
     }
   }
 
@@ -400,8 +418,37 @@ export default {
   }
 }
 
-.copy-progress,
-.delete-progress {
+.file-header {
+  > .top {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+    .ace-path {
+      width: 100%;
+      height: 30px;
+      border: 1px solid rgba(136, 136, 136, 0.3);
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+
+      > span {
+        color: #2F3235;
+        font-weight: bold;
+        font-size: 13px;
+      }
+    }
+  }
+
+  > .bottom {
+    height: 35px;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+  }
+}
+
+.copy-progress, .delete-progress {
   width: 100%;
   height: 100px;
   padding: 0 8px;
@@ -444,62 +491,6 @@ export default {
   }
 }
 
-.mkdir {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid rgba(136, 136, 136, 0.3);
-
-  > span {
-    width: 120px;
-    font-size: 18px;
-    font-weight: 700;
-  }
-}
-
-.mkdir-btn {
-  width: 100%;
-  height: 40px;
-  border-top: 1px solid rgba(136, 136, 136, 0.3);
-  background-color: #F6F6F6;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 6px;
-
-  .ace-btns {
-    .btn-child {
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      border-radius: 5px;
-      margin-left: 10px;
-
-      > i {
-        margin-top: 1px;
-      }
-    }
-
-    .btn-child:nth-child(1) {
-      background-color: #5CB85C;
-      color: white;
-
-      &:hover {
-        background-color: #449D44;
-      }
-
-      &:active {
-        background-color: #398439;
-      }
-
-      > i {
-        color: white;
-        margin-top: 1px;
-      }
-    }
-  }
-}
-
 .delete-list {
   width: 100%;
   padding: 4px 10px;
@@ -519,36 +510,6 @@ export default {
       color: #333333;
       font-size: 14px;
     }
-  }
-}
-
-.file-header {
-  > .top {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-
-    .ace-path {
-      width: 100%;
-      height: 30px;
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
-
-      > span {
-        color: #2F3235;
-        font-weight: bold;
-        font-size: 13px;
-      }
-    }
-  }
-
-  > .bottom {
-    height: 35px;
-    padding: 0 10px;
-    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
   }
 }
 </style>
