@@ -1,5 +1,5 @@
 <template>
-  <div v-loading='loading' class='page-container'>
+  <div v-loading='loading' class='page-container' @keydown.enter='handleEnter'>
     <img src='/png/top-left.png' alt='top-left' class='top-left'/>
     <div class='login-container'>
       <img src='/favicon.png' alt='favicon' class='favicon'/>
@@ -61,6 +61,9 @@ export default {
         position: 'top-left',
         duration: 3000
       })
+    },
+    handleEnter() {
+      this.login()
     },
     async authenticate(userName, password) {
       try {
