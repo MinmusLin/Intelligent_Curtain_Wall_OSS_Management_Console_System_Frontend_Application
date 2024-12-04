@@ -2,7 +2,7 @@
   <div v-loading='loading' class='page-container' @keydown.enter='handleEnter'>
     <img src='/png/top-left.png' alt='top-left' class='top-left'/>
     <div class='login-container'>
-      <img src='/favicon.png' alt='favicon' class='favicon'/>
+      <img src='/png/tongji.png' alt='favicon' class='favicon'/>
       <h1>欢迎登录系统</h1>
       <h4>智慧幕墙数据集管理平台</h4>
       <div style='display: flex; flex-direction: column; justify-content: center; align-items: center'>
