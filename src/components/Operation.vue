@@ -203,7 +203,6 @@ export default {
     },
     operationClick(type) {
       if (this.selections.length < 1) {
-        this.$message.error('错误，勾选数据为空')
         return
       }
       if (type === 'delete') {
@@ -225,9 +224,14 @@ export default {
       await this.$store.dispatch('deleteFile', this.selections)
     },
     async mkdirClick() {
-      const validNamePattern = /^[a-z0-9]+$/
+      const validNamePattern = /^[A-Za-z0-9-]+$/
       if (!this.mkdirName || !validNamePattern.test(this.mkdirName)) {
-        this.$message.warning('目录名称非法，请输入小写字母或数字')
+        this.$message({
+          message: '目录名称只能包含以下字符：A-Z, a-z, 0-9, -',
+          type: 'warning',
+          duration: 3000,
+          showClose: true
+        })
         return
       }
       this.mkdirVisible = false
@@ -240,7 +244,20 @@ export default {
     dirUpload(e) {
       let files = Array.from(e.target.files)
       e.target.value = ''
-      files.map((file) => this.$store.dispatch('sliceUpload', {file}))
+      const validNamePattern1 = /^[A-Za-z0-9-.]+$/
+      const invalidFiles = files.filter(file => !validNamePattern1.test(file.name))
+      if (invalidFiles.length > 0) {
+        this.$message({
+          message: '已取消上传文件，文件名称只能包含以下字符：A-Z, a-z, 0-9, -, .',
+          type: 'warning',
+          duration: 3000,
+          showClose: true
+        })
+        return
+      }
+      files.forEach((file) => {
+        this.$store.dispatch('sliceUpload', {file})
+      })
     },
     async refresh() {
       await this.$store.dispatch('fileUpdate')

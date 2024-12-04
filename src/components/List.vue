@@ -239,8 +239,32 @@ export default {
      */
     async renameConfirm() {
       const _this = this
-      this.renameVisible = false
+      const validNamePattern1 = /^[A-Za-z0-9-.]+$/
+      const validNamePattern2 = /^[A-Za-z0-9-]+$/
       let {to, from, dir} = this.rename
+      if (to === from) {
+        this.renameVisible = false
+        return
+      }
+      if (!dir && (!to || !validNamePattern1.test(to))) {
+        this.$message({
+          message: '文件名称只能包含以下字符：A-Z, a-z, 0-9, -, .',
+          type: 'warning',
+          duration: 3000,
+          showClose: true
+        })
+        return
+      }
+      if (dir && (!to || !validNamePattern2.test(to))) {
+        this.$message({
+          message: '目录名称只能包含以下字符：A-Z, a-z, 0-9, -',
+          type: 'warning',
+          duration: 3000,
+          showClose: true
+        })
+        return
+      }
+      this.renameVisible = false
       if (dir) {
         to = to + '/'
         from = from + '/'
