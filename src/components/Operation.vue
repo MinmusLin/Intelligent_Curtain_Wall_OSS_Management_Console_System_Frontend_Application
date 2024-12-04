@@ -328,67 +328,65 @@ export default {
   align-items: center;
   justify-content: flex-end;
   padding: 0 15px;
+}
 
-  .ace-btns {
-    .btn-child {
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      border-radius: 5px;
-      margin-left: 10px;
+.mkdir-btn .ace-btns .btn-child {
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  border-radius: 5px;
+  margin-left: 10px;
+}
 
-      > i {
-        transform: translateY(1px);
-      }
-    }
+.mkdir-btn .ace-btns .btn-child > i {
+  transform: translateY(1px);
+}
 
-    .btn-child:nth-child(2) {
-      background-color: #5CB85C;
-      color: white;
+.mkdir-btn .ace-btns .btn-child:nth-child(2) {
+  background-color: #5CB85C;
+  color: white;
+}
 
-      &:hover {
-        background-color: #449D44;
-      }
-    }
-  }
+.mkdir-btn .ace-btns .btn-child:nth-child(2):hover {
+  background-color: #449D44;
 }
 
 .ace-btns {
   display: flex;
   align-items: center;
   user-select: none;
+}
 
-  .btn-child {
-    height: 30px;
-    padding: 0 8px;
-    background-color: white;
-    border: 1px solid rgba(136, 136, 136, 0.3);
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border-right: 0;
+.ace-btns .btn-child {
+  height: 30px;
+  padding: 0 8px;
+  background-color: white;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-right: 0;
+}
 
-    input[type='file'] {
-      opacity: 0;
-      position: absolute;
-      cursor: pointer;
-      left: 0;
-      top: 0;
-      width: 65px;
-      height: 30px;
-    }
+.ace-btns .btn-child input[type='file'] {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  width: 65px;
+  height: 30px;
+}
 
-    > span {
-      font-size: 14px;
-      margin-left: 3px;
-    }
+.ace-btns .btn-child > span {
+  font-size: 14px;
+  margin-left: 3px;
+}
 
-    &:hover {
-      background-color: #E6E6E6;
-    }
+.ace-btns .btn-child:hover {
+  background-color: #E6E6E6;
+}
 
-    i {
-      transform: translateY(1px);
-    }
-  }
+.ace-btns .btn-child i {
+  transform: translateY(1px);
 }
 
 .paste {
@@ -401,98 +399,96 @@ export default {
   border-left: 0;
   position: relative;
   padding-right: 16px;
-
-  > .paste-child {
-    width: 100%;
-    height: 100%;
-    padding: 0 6px;
-    display: flex;
-    align-items: center;
-
-    &:hover {
-      background-color: #F5F5F5;
-    }
-
-    > i {
-      color: #409EFF;
-      transform: translateY(1px);
-    }
-
-    > span {
-      margin-left: 4px;
-    }
-  }
-
-  > span {
-    width: 16px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-left: 1px solid rgba(136, 136, 136, 0.3);
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #F5F5F5;
-    }
-  }
 }
 
-.file-header {
-  > .top {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
+.paste .paste-child {
+  width: 100%;
+  height: 100%;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+}
 
-    .ace-path {
-      width: 100%;
-      height: 30px;
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
+.paste .paste-child:hover {
+  background-color: #F5F5F5;
+}
 
-      > span {
-        color: #2F3235;
-        font-weight: bold;
-        font-size: 13px;
-      }
-    }
-  }
+.paste .paste-child > i {
+  color: #409EFF;
+  transform: translateY(1px);
+}
 
-  > .bottom {
-    height: 35px;
-    padding: 0 10px;
-    border-bottom: 1px solid rgba(136, 136, 136, 0.3);
-  }
+.paste .paste-child > span {
+  margin-left: 4px;
+}
+
+.paste > span {
+  width: 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid rgba(136, 136, 136, 0.3);
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.paste > span:hover {
+  background-color: #F5F5F5;
+}
+
+.file-header > .top {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.file-header > .top .ace-path {
+  width: 100%;
+  height: 30px;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.file-header > .top .ace-path > span {
+  color: #2F3235;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.file-header > .bottom {
+  height: 35px;
+  padding: 0 10px;
+  border-bottom: 1px solid rgba(136, 136, 136, 0.3);
 }
 
 .delete-list {
   padding: 6px 20px 16px;
   height: 400px;
   overflow: auto;
+}
 
-  > span {
-    color: #2F3235;
-    font-size: 14px;
-  }
+.delete-list > span {
+  color: #2F3235;
+  font-size: 14px;
+}
 
-  .delete-child {
-    margin-top: 5px;
-    width: 100%;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
+.delete-list .delete-child {
+  margin-top: 5px;
+  width: 100%;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
 
-    > span {
-      color: #2F3235;
-      font-size: 14px;
-      margin: 1px 8px 0;
-    }
-  }
+.delete-list .delete-child > span {
+  color: #2F3235;
+  font-size: 14px;
+  margin: 1px 8px 0;
 }
 
 .copy-progress, .delete-progress {
@@ -500,31 +496,31 @@ export default {
   height: 110px;
   padding: 0 20px;
   color: #2F3235;
+}
 
-  > span:nth-child(3) {
-    font-size: 14px;
-    font-weight: 700;
-  }
+.copy-progress > span:nth-child(3), .delete-progress > span:nth-child(3) {
+  font-size: 14px;
+  font-weight: 700;
+}
 
-  > span {
-    display: block;
-    margin-top: 14px;
-    font-size: 16px;
-  }
+.copy-progress > span, .delete-progress > span {
+  display: block;
+  margin-top: 14px;
+  font-size: 16px;
+}
 
-  .copy-child, .delete-child {
-    width: 100%;
-    height: 20px;
-    background-color: #EEEEEE;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 16px;
+.copy-progress .copy-child, .delete-progress .delete-child {
+  width: 100%;
+  height: 20px;
+  background-color: #EEEEEE;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 16px;
+}
 
-    > span:nth-child(1) {
-      height: 100%;
-      display: block;
-      background-color: #5CB85C;
-    }
-  }
+.copy-progress .copy-child > span:nth-child(1), .delete-progress .delete-child > span:nth-child(1) {
+  height: 100%;
+  display: block;
+  background-color: #5CB85C;
 }
 </style>
