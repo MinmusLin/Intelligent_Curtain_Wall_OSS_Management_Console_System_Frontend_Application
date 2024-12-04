@@ -66,25 +66,25 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
+}
 
-  .copyright {
-    position: absolute;
-    color: #5D6065;
-    user-select: none;
-    left: 8px;
-    bottom: 4px;
-  }
+.home-container .copyright {
+  position: absolute;
+  color: #5D6065;
+  user-select: none;
+  left: 8px;
+  bottom: 4px;
+}
 
-  .transmission-control {
-    position: absolute;
-    height: 24px;
-    right: 0;
-    bottom: 0;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    user-select: none;
-  }
+.home-container .transmission-control {
+  position: absolute;
+  height: 24px;
+  right: 0;
+  bottom: 0;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
 }
 </style>

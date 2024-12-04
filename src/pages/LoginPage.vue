@@ -173,78 +173,79 @@ export default {
   width: 100%;
   height: 100%;
   user-select: none;
+}
 
-  .top-left {
-    position: relative;
-    top: 0;
-    left: 0;
-  }
+.page-container .top-left {
+  position: relative;
+  top: 0;
+  left: 0;
+}
 
-  .login-container {
-    position: relative;
-    top: 0;
-    left: 10%;
-    height: 600px;
-    width: 480px;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(158, 195, 255, 0.51);
-    padding: 20px;
-    z-index: 2;
-    background-color: white;
+.page-container .login-container {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  height: 600px;
+  width: 480px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(158, 195, 255, 0.51);
+  padding: 20px;
+  z-index: 2;
+  background-color: white;
+  transform: translateY(-50%);
+}
 
-    .favicon {
-      width: 100px;
-      height: auto;
-      position: relative;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+.page-container .login-container .favicon {
+  width: 100px;
+  height: auto;
+  position: relative;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-    h1 {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 36px;
-      font-weight: 600;
-      line-height: 48px;
-      color: rgba(0, 0, 0, 1);
-      vertical-align: top;
-    }
+.page-container .login-container h1 {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 48px;
+  color: rgba(0, 0, 0, 1);
+  vertical-align: top;
+}
 
-    h4 {
-      margin-top: 20px;
-      margin-bottom: 30px;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 26px;
-      color: rgba(0, 0, 0, 0.6);
-      text-align: center;
-      vertical-align: top;
-    }
+.page-container .login-container h4 {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  vertical-align: top;
+}
 
-    .guide {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 14px;
-      color: #409eff;
-    }
-  }
+.page-container .login-container .guide {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  color: #409eff;
+}
 
-  .illustration {
-    position: absolute;
-    top: 25%;
-    right: 10%;
-    width: 800px;
-    height: auto;
-    z-index: 1;
-  }
+.page-container .illustration {
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  width: 800px;
+  height: auto;
+  z-index: 1;
+}
 
-  .bottom-right {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
+.page-container .bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 </style>
