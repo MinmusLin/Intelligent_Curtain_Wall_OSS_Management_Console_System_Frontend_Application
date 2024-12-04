@@ -65,36 +65,36 @@ export default {
   color: white;
   user-select: none;
   white-space: nowrap;
+}
 
-  .title {
-    font-size: 18px;
-    font-weight: bold;
-  }
+.header .title {
+  font-size: 18px;
+  font-weight: bold;
+}
 
-  .operation {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+.header .operation {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
 
-    .operation-child:nth-last-child(1) {
-      margin-right: -8px;
-    }
+.header .operation .operation-child:nth-last-child(1) {
+  margin-right: -8px;
+}
 
-    .operation-child {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
+.header .operation .operation-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
 
-      > span:nth-child(1) {
-        font-size: 15px;
-      }
+.header .operation .operation-child > span:nth-child(1) {
+  font-size: 15px;
+}
 
-      > span:nth-child(2) {
-        font-size: 15px;
-        margin-left: 6px;
-      }
-    }
-  }
+.header .operation .operation-child > span:nth-child(2) {
+  font-size: 15px;
+  margin-left: 6px;
 }
 </style>

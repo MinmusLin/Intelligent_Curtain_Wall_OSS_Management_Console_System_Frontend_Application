@@ -79,48 +79,48 @@ export default {
   justify-content: center;
   align-items: center;
   user-select: none;
+}
 
-  .ace-main {
-    width: 1000px;
-    border-radius: 8px;
-    overflow: hidden;
+.ace-main {
+  width: 1000px;
+  border-radius: 8px;
+  overflow: hidden;
+}
 
-    .ace-header {
-      width: 100%;
-      background-color: #F0F0F0;
+.ace-header {
+  width: 100%;
+  background-color: #F0F0F0;
+}
 
-      .ace-title {
-        width: 100%;
-        height: 40px;
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        padding-left: 10px;
-        user-select: none;
-        position: relative;
+.ace-title {
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  user-select: none;
+  position: relative;
+}
 
-        .close {
-          position: absolute;
-          right: 10px;
-          top: 7px;
-          font-size: 24px;
-          cursor: pointer;
-        }
+.ace-title .close {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font-size: 24px;
+  cursor: pointer;
+}
 
-        > span {
-          font-size: 16px;
-          font-weight: 700;
-          color: #2F3235;
-          margin-left: 6px;
-          white-space: nowrap;
-        }
-      }
-    }
+.ace-title > span {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2F3235;
+  margin-left: 6px;
+  white-space: nowrap;
+}
 
-    #editor {
-      width: 100%;
-      height: 600px;
-    }
-  }
+#editor {
+  width: 100%;
+  height: 600px;
 }
 </style>

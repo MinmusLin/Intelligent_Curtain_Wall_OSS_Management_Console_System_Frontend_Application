@@ -140,102 +140,100 @@ export default {
   opacity: 0.9;
   z-index: 999;
   user-select: none;
+}
 
-  .tabs-item {
-    .control {
-      padding-left: 12px;
-      border-bottom: 1px solid rgba(136, 136, 136, 0.3);
-    }
+.data-pass .tabs-item .control {
+  padding-left: 12px;
+  border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+}
 
-    .upload-list {
-      height: 360px;
-      overflow: auto;
+.data-pass .tabs-item .upload-list {
+  height: 360px;
+  overflow: auto;
+}
 
-      .upload-item {
-        height: 50px;
-        border-bottom: 1px solid rgba(136, 136, 136, 0.3);
-        padding-left: 14px;
-        display: flex;
-        align-items: center;
-        position: relative;
+.data-pass .tabs-item .upload-list .upload-item {
+  height: 50px;
+  border-bottom: 1px solid rgba(136, 136, 136, 0.3);
+  padding-left: 14px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 
-        .upload-info {
-          width: 220px;
+.data-pass .tabs-item .upload-list .upload-item .upload-info {
+  width: 220px;
+}
 
-          > .progress {
-            width: 200px;
-            height: 6px;
-            border-radius: 3px;
-            margin-top: 5px;
-            border: 1px solid rgba(136, 136, 136, 0.3);
+.data-pass .tabs-item .upload-list .upload-item .upload-info .progress {
+  width: 200px;
+  height: 6px;
+  border-radius: 3px;
+  margin-top: 5px;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+}
 
-            > .progress-child {
-              height: 100%;
-              background-color: #5182F8;
-            }
-          }
-        }
+.data-pass .tabs-item .upload-list .upload-item .upload-info .progress .progress-child {
+  height: 100%;
+  background-color: #5182F8;
+}
 
-        .upload-status {
-          width: 100px;
-          text-align: center;
-          color: #337AB7;
-          font-size: 13px;
-          font-weight: 700;
-        }
+.data-pass .tabs-item .upload-list .upload-item .upload-status {
+  width: 100px;
+  text-align: center;
+  color: #337AB7;
+  font-size: 13px;
+  font-weight: 700;
+}
 
-        .upload-size {
-          font-size: 13px;
-          color: #2F3235;
-          margin-left: 20px;
-        }
+.data-pass .tabs-item .upload-list .upload-item .upload-size {
+  font-size: 13px;
+  color: #2F3235;
+  margin-left: 20px;
+}
 
-        .upload-btns {
-          height: 100%;
-          position: absolute;
-          right: 14px;
+.data-pass .tabs-item .upload-list .upload-item .upload-btns {
+  height: 100%;
+  position: absolute;
+  right: 14px;
+}
 
-          .btn-child {
-            width: 20px;
-            height: 20px;
-          }
-        }
-      }
-    }
-  }
+.data-pass .tabs-item .upload-list .upload-item .upload-btns .btn-child {
+  width: 20px;
+  height: 20px;
+}
 
-  > .icon-dashujukeshihuaico- {
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    font-size: 24px;
-    cursor: pointer;
-  }
+.data-pass > .icon-dashujukeshihuaico- {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .upload-btns {
   height: 40px;
   display: flex;
   align-items: center;
+}
 
-  .btn-child {
-    width: 40px;
-    height: 30px;
-    border: 1px solid rgba(136, 136, 136, 0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-right: 5px;
-    border-radius: 5px;
+.upload-btns .btn-child {
+  width: 40px;
+  height: 30px;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 5px;
+}
 
-    &:hover {
-      background-color: #E6E6E6;
-    }
+.upload-btns .btn-child:hover {
+  background-color: #E6E6E6;
+}
 
-    &:active {
-      background-color: #F5F5F5;
-    }
-  }
+.upload-btns .btn-child:active {
+  background-color: #F5F5F5;
 }
 </style>

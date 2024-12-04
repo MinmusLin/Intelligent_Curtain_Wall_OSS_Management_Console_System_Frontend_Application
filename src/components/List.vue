@@ -492,79 +492,77 @@ export default {
   align-items: center;
   justify-content: flex-end;
   padding: 0 15px;
+}
 
-  .ace-btns {
-    .btn-child {
-      border: 1px solid rgba(136, 136, 136, 0.3);
-      border-radius: 5px;
-      margin-left: 10px;
+.mkdir-btn .ace-btns .btn-child {
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  border-radius: 5px;
+  margin-left: 10px;
+}
 
-      > i {
-        transform: translateY(1px);
-      }
-    }
+.mkdir-btn .ace-btns .btn-child > i {
+  transform: translateY(1px);
+}
 
-    .btn-child:nth-child(2) {
-      background-color: #5CB85C;
-      color: white;
+.mkdir-btn .ace-btns .btn-child:nth-child(2) {
+  background-color: #5CB85C;
+  color: white;
+}
 
-      &:hover {
-        background-color: #449D44;
-      }
-    }
-  }
+.mkdir-btn .ace-btns .btn-child:nth-child(2):hover {
+  background-color: #449D44;
 }
 
 .ace-btns {
   display: flex;
   align-items: center;
   user-select: none;
+}
 
-  .btn-child {
-    height: 30px;
-    padding: 0 8px;
-    background-color: white;
-    border: 1px solid rgba(136, 136, 136, 0.3);
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+.ace-btns .btn-child {
+  height: 30px;
+  padding: 0 8px;
+  background-color: white;
+  border: 1px solid rgba(136, 136, 136, 0.3);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 
-    > span {
-      font-size: 14px;
-      margin-left: 3px;
-    }
+.ace-btns .btn-child > span {
+  font-size: 14px;
+  margin-left: 3px;
+}
 
-    &:hover {
-      background-color: #E6E6E6;
-    }
-  }
+.ace-btns .btn-child:hover {
+  background-color: #E6E6E6;
 }
 
 .file-list {
   width: 100%;
   overflow: auto;
+}
 
-  .file-name {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 20px;
+.file-list .file-name {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
 
-    > svg {
-      margin-right: 10px;
-    }
+.file-list .file-name > svg {
+  margin-right: 10px;
+}
 
-    span {
-      font-size: 13px;
-    }
-  }
+.file-list .file-name span {
+  font-size: 13px;
+}
 
-  .ace-operation {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    gap: 6px;
-  }
+.file-list .ace-operation {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
 }
 
 .img-preview {
