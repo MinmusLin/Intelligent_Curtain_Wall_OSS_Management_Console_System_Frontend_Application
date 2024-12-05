@@ -51,6 +51,11 @@ export default {
     uploadList: (state) => state.uploadList
   }),
   methods: {
+    /**
+     * Calculates the current number of uploaded files and the total number of files in the upload list.
+     * The current number is based on items with a status of '1'.
+     * @returns {Object} An object containing the current and total number of uploaded files.
+     */
     diskInfo() {
       let current = 0
       this.uploadList.map((item) => {

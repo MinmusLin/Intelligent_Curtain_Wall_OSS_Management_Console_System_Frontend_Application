@@ -182,13 +182,29 @@ export default {
     }
   },
   methods: {
+    /**
+     * Toggles the visibility of the create directory dialog.
+     * @method mkdirFileClick
+     */
     mkdirFileClick() {
       this.mkdirName = ''
       this.mkdirVisible = true
     },
+
+    /**
+     * Closes the dialog and updates the store.
+     * @method closeFun
+     * @param {string} name - The store variable name.
+     * @param {boolean} data - The data to set.
+     */
     closeFun(name, data) {
       this.$store.commit('stateUpdate', {name, data})
     },
+
+    /**
+     * Initiates the download of a text file containing URLs of the selected files.
+     * @method downloadAddressClick
+     */
     async downloadAddressClick() {
       if (this.selections.length < 1) {
         return
@@ -208,6 +224,12 @@ export default {
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
     },
+
+    /**
+     * Opens a dialog for performing file operations such as delete.
+     * @method operationClick
+     * @param {string} type - The type of operation (delete).
+     */
     operationClick(type) {
       if (this.selections.length < 1) {
         return
@@ -216,20 +238,46 @@ export default {
         this.$store.commit('stateUpdate', {name: 'deleteVisible', data: true})
       }
     },
+
+    /**
+     * Initiates the paste operation using copied files.
+     * @method pasteClick
+     */
     async pasteClick() {
       await this.$store.dispatch('pasteClick', {emptys: this.copys})
     },
+
+    /**
+     * Cancels the current paste operation.
+     * @method cancelPasteClick
+     */
     cancelPasteClick() {
       this.$store.commit('stateUpdate', {name: 'copys', data: []})
     },
+
+    /**
+     * Prepares to copy or cut selected files.
+     * @method copyClick
+     * @param {boolean} type - Determines whether to copy or cut (true for cut).
+     */
     async copyClick(type) {
       this.$store.commit('stateUpdate', {name: 'shear', data: type})
       this.$store.commit('stateUpdate', {name: 'copys', data: this.selections})
       this.$store.commit('stateUpdate', {name: 'copyPath', data: this.path})
     },
+
+    /**
+     * Deletes the selected files.
+     * @method deleteFile
+     */
     async deleteFile() {
       await this.$store.dispatch('deleteFile', this.selections)
     },
+
+    /**
+     * Creates a new directory after validating the name.
+     * @method mkdirClick
+     */
     async mkdirClick() {
       const validNamePattern = /^[A-Za-z0-9-]+$/
       if (!this.mkdirName || !validNamePattern.test(this.mkdirName)) {
@@ -245,9 +293,21 @@ export default {
       await simplePut(`${this.path}${this.mkdirName}/`, new Blob(['']))
       await this.$store.dispatch('fileUpdate')
     },
+
+    /**
+     * Handles the closing of dialogs.
+     * @method handleClose
+     * @param {function} none - The callback function to close the dialog.
+     */
     handleClose(none) {
       none()
     },
+
+    /**
+     * Handles file upload and validates filenames.
+     * @method dirUpload
+     * @param {Event} e - The event triggered by the file input change.
+     */
     dirUpload(e) {
       let files = Array.from(e.target.files)
       e.target.value = ''
@@ -266,9 +326,19 @@ export default {
         this.$store.dispatch('sliceUpload', {file})
       })
     },
+
+    /**
+     * Refreshes the file list by dispatching an update action.
+     * @method refresh
+     */
     async refresh() {
       await this.$store.dispatch('fileUpdate')
     },
+
+    /**
+     * Navigates one level up the current file path.
+     * @method pathBack
+     */
     pathBack() {
       let path = this.path
       let paths = path.split('/')
@@ -276,6 +346,13 @@ export default {
       this.$store.commit('stateUpdate', {name: 'path', data: paths.join('/')})
       this.refresh()
     },
+
+    /**
+     * Returns the appropriate icon based on the file type.
+     * @method suffixIconTool
+     * @param {object} row - The file item to check for the icon.
+     * @returns {string} - The corresponding icon.
+     */
     suffixIconTool(row) {
       if (row.dir) {
         return '#icon-wenjianjia'

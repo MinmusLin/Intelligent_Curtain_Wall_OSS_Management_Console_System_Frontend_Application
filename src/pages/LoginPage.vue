@@ -57,6 +57,10 @@ export default {
     }
   },
   methods: {
+    /**
+     * Displays an error notification when login fails.
+     * @returns {void}
+     */
     showErrorNotification() {
       this.$notify({
         title: '登录失败',
@@ -66,9 +70,22 @@ export default {
         duration: 3000
       })
     },
+
+    /**
+     * Triggers the login process when the Enter key is pressed.
+     * @returns {void}
+     */
     handleEnter() {
       this.login()
     },
+
+    /**
+     * Authenticates the user by sending a POST request with the provided username and password.
+     * If authentication is successful, it returns the corresponding access key details.
+     * @param {string} userName - The username of the account to authenticate.
+     * @param {string} password - The password for the account.
+     * @returns {Promise<Object>} - An object containing the access key ID and secret.
+     */
     async authenticate(userName, password) {
       try {
         const response = await this.$axios.post('authenticate/', {
@@ -93,6 +110,12 @@ export default {
         }
       }
     },
+
+    /**
+     * Handles the login logic by validating the user input and attempting authentication.
+     * If authentication is successful, it stores the necessary information and redirects the user.
+     * @returns {void}
+     */
     async login() {
       if (!this.user && !this.password) {
         this.$message({

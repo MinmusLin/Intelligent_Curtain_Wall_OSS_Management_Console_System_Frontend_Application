@@ -80,6 +80,13 @@ export default {
     this.emptyFile('not')
   },
   methods: {
+    /**
+     * Handles the click event for the pause/start upload button.
+     * Based on the current status of the file, either pauses or resumes the upload.
+     * If the file is paused, it triggers the Vuex action to resume the upload;
+     * If the file is uploading, it cancels the upload.
+     * @param {Object} item - The current upload file object.
+     */
     stopClick(item) {
       if (item.status === '-1') {
         this.$store.dispatch('sliceUpload', item)
@@ -87,6 +94,13 @@ export default {
         item.client.cancel()
       }
     },
+
+    /**
+     * Controls the upload state for all files (start/pause).
+     * Based on the provided control type ('start' or 'stop'), it either starts or pauses the upload for all files.
+     *
+     * @param {String} type - Control type, 'start' to start uploads, 'stop' to pause uploads.
+     */
     fileControl(type) {
       let uploadList = this.uploadList
       if (type === 'start') {
@@ -103,6 +117,14 @@ export default {
         })
       }
     },
+
+    /**
+     * Clears files from the upload list based on the provided type.
+     * Supports deleting completed, ongoing, or all files.
+     *
+     * @param {String} type - The type of operation ('all' for clearing all, 'not' for completed files, 'has' for ongoing uploads, 'key' for deleting a specific file).
+     * @param {String} [uploadId] - The uploadId of the file to be deleted (only required if type is 'key').
+     */
     emptyFile(type, uploadId) {
       let uploadList = JSON.parse(window.localStorage.getItem('uploadList')) || []
       if (type === 'all') {

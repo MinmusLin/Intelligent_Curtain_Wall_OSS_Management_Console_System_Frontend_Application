@@ -37,6 +37,11 @@ export default {
     }
   },
   methods: {
+    /**
+     * Handles the logout process by confirming with the user,
+     * removing the client data from localStorage, and redirecting to the login page.
+     * @returns {void}
+     */
     exit() {
       this.$confirm('是否退出当前账号？', '注销', {
         confirmButtonText: '确定',

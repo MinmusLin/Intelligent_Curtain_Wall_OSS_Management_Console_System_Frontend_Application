@@ -51,6 +51,10 @@ export default {
     this.codeType = language.caption
   },
   methods: {
+    /**
+     * Closes the ACE editor modal and updates the state to hide the editor.
+     * @returns {void}
+     */
     closeClick() {
       this.$store.commit('stateUpdate', {name: 'editorShow', data: false})
     }

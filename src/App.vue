@@ -22,6 +22,12 @@ export default {
     this.resetUserInfoFun()
   },
   methods: {
+    /**
+     * Resets the page state based on the current route.
+     * Redirects to the appropriate page and updates the header visibility.
+     * @param {string} [to] - The target route path. If '/login', redirects to '/home'. If no client info is found, redirects to '/login'.
+     * @returns {void}
+     */
     resetPageFun(to) {
       let client = JSON.parse(window.localStorage.getItem('client'))
       if (to === '/login') {
@@ -42,6 +48,12 @@ export default {
         })
       }
     },
+
+    /**
+     * Resets the user information state based on stored OSS (Object Storage Service) credentials.
+     * Updates the store with bucket and access key information.
+     * @returns {void}
+     */
     resetUserInfoFun() {
       let {bucket, accessKeyId} = JSON.parse(window.localStorage.getItem('ossInfo')) || {}
       this.$store.commit('stateUpdate', {name: 'bucket', data: bucket})
