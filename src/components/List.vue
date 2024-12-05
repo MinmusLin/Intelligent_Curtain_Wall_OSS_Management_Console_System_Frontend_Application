@@ -203,15 +203,40 @@ export default {
      * @param {string} name - The file name to generate the URL.
      */
     getUrl(name) {
-      navigator.clipboard.writeText('http://110.42.214.164:8005/oss/download/' + name).then(() => {
+      const textArea = document.createElement('textarea')
+      textArea.value = 'http://110.42.214.164:8005/oss/download/' + name
+      document.body.appendChild(textArea)
+      textArea.select()
+      try {
+        // noinspection JSDeprecatedSymbols
+        const successful = document.execCommand('copy')
+        if (successful) {
+          this.$notify({
+            title: '剪贴板',
+            message: '文件地址已复制到剪贴板',
+            type: 'success',
+            position: 'top-left',
+            duration: 3000
+          })
+        } else {
+          this.$notify({
+            title: '剪贴板',
+            message: '复制文件地址失败',
+            type: 'error',
+            position: 'top-left',
+            duration: 3000
+          })
+        }
+      } catch (err) {
         this.$notify({
           title: '剪贴板',
-          message: '文件地址已复制到剪贴板',
-          type: 'success',
+          message: '复制文件地址失败',
+          type: 'error',
           position: 'top-left',
           duration: 3000
         })
-      })
+      }
+      document.body.removeChild(textArea)
     },
 
     /**
