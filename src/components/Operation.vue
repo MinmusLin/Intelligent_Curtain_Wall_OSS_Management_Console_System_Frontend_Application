@@ -53,6 +53,13 @@
           <span class='iconfont icon-dashujukeshihuaico-' @click='cancelPasteClick'/>
         </div>
       </div>
+      <div v-show='!path' style='font-size: 14px; padding-top: 2px; padding-left: 3px'>
+        <span>欢迎使用智慧幕墙数据集管理平台！</span>
+        <a href='https://github.com/MinmusLin/Intelligent_Curtain_Wall_Backend_Integration/blob/main/Documentation/Dataset_Management_Platform_Guide.md'
+           target='_blank'
+           style='color: #409EFF; text-decoration: none'>点击此处</a>
+        <span>查阅平台使用指南。</span>
+      </div>
     </div>
 
     <el-dialog title='创建目录' :visible.sync='mkdirVisible' width='500px' :before-close='handleClose' append-to-body>
