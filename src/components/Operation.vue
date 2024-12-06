@@ -211,7 +211,7 @@ export default {
       }
       let list = await this.$store.dispatch('getfiles', this.selections)
       let filteredList = list.filter(item => !item.name.endsWith('/'))
-      const baseUrl = 'http://110.42.214.164:8005/oss/download/'
+      const baseUrl = `${this.$baseURL}/oss/download/`
       const textToSave = filteredList.map(item => baseUrl + item.name).join('\n')
       const blob = new Blob([textToSave], {type: 'text/plain'})
       // noinspection JSCheckFunctionSignatures

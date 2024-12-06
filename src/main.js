@@ -9,6 +9,7 @@ axios.defaults.baseURL = 'http://110.42.214.164:8005/'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 Vue.prototype.$axios = axios
+Vue.prototype.$baseURL = axios.defaults.baseURL
 
 new Vue({
     router,
