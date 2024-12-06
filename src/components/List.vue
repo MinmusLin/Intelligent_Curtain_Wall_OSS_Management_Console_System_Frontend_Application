@@ -106,7 +106,7 @@
                append-to-body>
       <div class='img-preview'>
         <img v-if='imgPreviewName'
-             :src='`${this.$baseURL}/oss/download/${imgPreviewName}`'
+             :src='`${this.$baseURL}oss/download/${imgPreviewName}`'
              alt='imgPreviewName'/>
       </div>
       <div class='mkdir-btn'>
@@ -204,7 +204,7 @@ export default {
      */
     getUrl(name) {
       const textArea = document.createElement('textarea')
-      textArea.value = `${this.$baseURL}/oss/download/` + name
+      textArea.value = `${this.$baseURL}oss/download/` + name
       document.body.appendChild(textArea)
       textArea.select()
       try {
