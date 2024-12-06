@@ -16,11 +16,6 @@
                   show-password/>
         <el-button type='primary' @click='login' style='width: 380px; margin: 10px 0'>登录</el-button>
       </div>
-      <a href='https://github.com/MinmusLin/Intelligent_Curtain_Wall_Backend_Integration/blob/main/Documentation/Dataset_Management_Platform_Guide.md'
-         target='_blank'
-         class='guide'>
-        平台使用指南
-      </a>
     </div>
     <img src='/png/illustration.png' alt='illustration' class='illustration'/>
     <img src='/png/bottom-right.png' alt='bottom-right' class='bottom-right'/>
@@ -250,16 +245,6 @@ export default {
   color: rgba(0, 0, 0, 0.6);
   text-align: center;
   vertical-align: top;
-}
-
-.page-container .login-container .guide {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;
-  color: #409EFF;
-  text-decoration: none
 }
 
 .page-container .illustration {
