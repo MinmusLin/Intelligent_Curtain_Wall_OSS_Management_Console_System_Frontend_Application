@@ -54,7 +54,7 @@
         </div>
       </div>
       <div v-show='!path' style='font-size: 14px; padding-top: 2px; padding-left: 3px'>
-        <span>欢迎使用智慧幕墙数据集管理平台！</span>
+        <span style='user-select: none'>欢迎使用智慧幕墙数据集管理平台！</span>
       </div>
     </div>
 
